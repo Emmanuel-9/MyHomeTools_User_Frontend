@@ -23,7 +23,7 @@ function Login() {
     e.preventDefault()
     axios
       .post(
-        "http://localhost:3001/auth/login",
+        "http://localhost:3001/auth/login", //change the link
         {
           email,
           password,
@@ -72,14 +72,11 @@ function Login() {
             <button type="submit"> Login </button>
           </form>
 
-          <p id="forgot-password"> Forgot password?</p>
-          <br />
-          <p id="signup">
-            Do not have an account?
-            {"  "}
-            <Link className='link' to="/register">
-              <b className="bold">Register</b>
-            </Link>
+          <p id="register">
+            Don't have an account?{" "}
+            <Link className="link" to="/register">
+              <b>Register</b>{" "}
+            </Link>{" "}
           </p>
         </Form>
       </Right>
@@ -107,6 +104,7 @@ const Wrapper = styled.section`
     padding: 0;
     z-index: 100;
   }
+
   @media (min-width: 700px) {
     img {
       width: 50%;
@@ -124,6 +122,7 @@ const Right = styled.div`
   border-radius: 70px 0 0 70px;
   display: flex;
   align-items: center;
+
   @media (min-width: 700px) {
     position: absolute;
   }
@@ -132,20 +131,25 @@ const Right = styled.div`
 const Form = styled.div`
   z-index: 1000;
   position: absolute;
-  right: 20px;
-  width: 78%;
+  right: 100px;
+  width: 70%;
+  border: 1px solid #9ec5ab;
   height: 50%;
   display: flex;
   flex-direction: column;
+
   padding: 50px 30px;
+
   h1 {
     align-self: center;
     margin: -10px 0 50px 0;
   }
+
   form {
     display: flex;
     flex-direction: column;
     justify-content: center;
+
     input {
       padding: 10px;
       margin: 15px 0;
@@ -153,22 +157,26 @@ const Form = styled.div`
       border-bottom: 1px solid lightgrey;
       font-size: 18px;
       outline: none;
+
       :hover {
         border-bottom: 1px solid #9ec5ab;
       }
     }
+
     #email {
       margin: 0;
     }
+
     button {
       padding: 10px;
       color: #ffff;
       background-color: #9ec5ab;
       font-weight: bold;
       font-size: 18px;
-      margin: 20px 0;
+      margin: 20px 0 40px 0;
       border: none;
       cursor: pointer;
+
       :hover {
         color: #9ec5ab;
         background-color: #ffff;
@@ -177,40 +185,31 @@ const Form = styled.div`
     }
   }
 
-
-  #forgot-password {
-    width: 100%;
-    font-weight: bold;
-    cursor: pointer;
-    margin-bottom: 40px;
-    :hover {
-      color: grey;
-    }
-  }
-  #signup {
-    align-self: center;
-  }
-  .bold {
-    font-weight: bold;
-    :hover {
-      color: grey;
-      cursor: pointer;
-    }
+  #register {
+    font-size: 20px;
   }
 
-.link{
+  .link {
     text-decoration: none;
     color: black;
-}
+
+    :hover {
+      color: #9ec5ab;
+    }
+  }
 
   @media (min-width: 768px) {
-    right: 150px;
+    right: 100px;
     width: 60%;
     height: 60%;
+
     form {
       input {
         margin: 40px 0;
+        padding: 20px;
+        font-size: 20px;
       }
+
       button {
         padding: 20px;
         font-size: 20px;
