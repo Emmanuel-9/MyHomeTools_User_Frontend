@@ -99,12 +99,7 @@ function Register() {
 	)
 }
 
-
-
 export default Register
-
-
-
 
 
 const Container = styled.div`
