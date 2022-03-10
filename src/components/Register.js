@@ -2,6 +2,7 @@ import React, { useState, useRef } from "react"
 // import axios from "axios"
 import styled from "styled-components"
 import { Link, useNavigate } from "react-router-dom"
+import axios from "axios"
 
 function Register() {
   const navigate = useNavigate("/")
@@ -40,9 +41,34 @@ function Register() {
     setPassword(e.target.value)
   }
 
-  const register = (e) => {
-    e.preventDefault()
-  }
+  
+	const register = (e) => {
+		e.preventDefault()
+		axios
+			.post(
+				`/auth/register`, //insert the API route here
+				{
+					first_name: firstName,
+					last_name: lastName,
+          email,
+          phone_number: phoneNumber,
+					password: password,
+				},
+				{ credentials: "include" }
+			)
+			.then((response) => {
+				response.status === 201 && alert("Registered Successfully")
+				navigate("/")
+				console.log(response.data.token)
+				localStorage.setItem("token", response.data.token)
+				console.log("cookie from the register method", document.cookie.token)
+			})
+			.catch((err) => {
+				console.log(err)
+				console.log(err.response.data)
+				alert(err.response.data)
+			})
+	}
 
   return (
     <Container>
