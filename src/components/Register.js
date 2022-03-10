@@ -1,10 +1,10 @@
 import React, { useState, useRef } from "react"
-import axios from "axios"
+// import axios from "axios"
 import styled from "styled-components"
-import { useNavigate } from "react-router-dom"
+// import { useNavigate } from "react-router-dom"
 
 function Register() {
-	const navigate = useNavigate("/")
+	// const navigate = useNavigate("/")
 
 	const [firstName, setFirstName] = useState("")
 	const [lastName, setLastName] = useState("")
@@ -105,3 +105,50 @@ export default Register
 
 
 
+
+
+const Container = styled.div`
+	/* border: 1px solid black; */
+	/* width: 50%; */
+	height: 80vh;
+	margin: auto;
+	display: flex;
+`
+const Form = styled.div`
+	/* border: 1px solid black; */
+	margin: auto;
+	/* padding: 20px; */
+	/* width: 100%; */
+	box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+	form {
+		/* border: 1px solid black; */
+		display: flex;
+		flex-direction: column;
+		/* justify-content: center; */
+		align-items: center;
+		padding: 40px;
+		/* width: 100%; */
+		p {
+			margin: 0 0 10px 0;
+			border-bottom: 1px solid black;
+			padding: 3px 20%;
+		}
+		input {
+			outline: none;
+			border: 1px solid lightgrey;
+			padding: 5px;
+			margin: 10px 0;
+			width: 100%;
+		}
+		button {
+			background: none;
+			padding: 5px 15px;
+			border-radius: 5px;
+			margin: 20px 0 0 0;
+			:hover {
+				background-color: lightgrey;
+				cursor: pointer;
+			}
+		}
+	}
+`
