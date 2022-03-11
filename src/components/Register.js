@@ -35,10 +35,10 @@ function Register() {
   }
 
   const handlePhoneNumber = (e) => {
-    setPassword(e.target.value)
+    setPhoneNumber(e.target.value)
   }
   const handleConfirmPassword = (e) => {
-    setPassword(e.target.value)
+    setConfirmPassword(e.target.value)
   }
 
   
@@ -46,7 +46,7 @@ function Register() {
 		e.preventDefault()
 		axios
 			.post(
-				`/auth/register`, //insert the API route here
+				`http://localhost:4000/auth/signup`, //insert the API route here
 				{
 					first_name: firstName,
 					last_name: lastName,
@@ -103,7 +103,7 @@ function Register() {
             <input
               type="phone"
               ref={phoneNumberRef}
-              onChange={handleLastName}
+              onChange={handlePhoneNumber}
               placeholder="Phone Number"
             />
 
@@ -125,7 +125,7 @@ function Register() {
               <input
                 className="password"
                 type="password"
-                ref={lastNameRef}
+                ref={confirmPasswordRef}
                 onChange={handleConfirmPassword}
                 placeholder="Confirm Password"
               />

@@ -23,7 +23,7 @@ function Login() {
     e.preventDefault()
     axios
       .post(
-        "http://localhost:3001/auth/login", //change the link
+        "http://localhost:4000/auth/login", //change the link
         {
           email,
           password,
