@@ -1,7 +1,7 @@
 import React, { useState, useRef } from "react"
 import styled from "styled-components"
 import { Link, useNavigate } from "react-router-dom"
-import axios from "axios"
+import axios, { AxiosError } from "axios"
 
 function Login() {
   const navigate = useNavigate()
@@ -19,27 +19,34 @@ function Login() {
     setPassword(e.target.value)
   }
 
-  const login = (e) => {
+  const login = async (e) => {
     e.preventDefault()
-    axios
-      .post(
-        "http://localhost:4000/auth/login", //change the link
-        {
-          email,
-          password,
-        },
-        { credentials: "include" }
-      )
-      .then((response) => {
-        response.status === 201 && navigate("/")
-        console.log("token for login is: ", response.data.token)
-        localStorage.setItem("token", response.data.token)
-      })
-      .catch((error) => {
-        console.log(error)
-        console.log(error.response.data)
-        alert(error.response.data)
-      })
+    try {
+      await axios
+        .post(
+          "http://localhost:4000/auth/login", //change the link
+          {
+            email,
+            password,
+          },
+          { credentials: "include" }
+        )
+        .then((response) => {
+          response.status === 201 && navigate("/")
+          console.log("token for login is: ", response.data.token)
+          localStorage.setItem("token", response.data.token)
+        })
+        .catch((error) => {
+          console.log(error.message)
+          if (error.message === "Network Error") {
+            alert("Oops! Something went wrong. Please try again")
+          } else if(error.message === "Request failed with status code 404") {
+            alert("Invalid Credentials")
+          }
+        })
+    } catch (e) {
+      console.log("another catch", e)
+    }
   }
 
   return (

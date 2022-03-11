@@ -38,12 +38,20 @@ function Register() {
     setPhoneNumber(e.target.value)
   }
   const handleConfirmPassword = (e) => {
-    setConfirmPassword(e.target.value)
+    setConfirmPassword( e.target.value )
+    
+    
   }
 
   
 	const register = (e) => {
 		e.preventDefault()
+    if ( confirmPassword != password ) {
+      alert( 'Passwords should match' )
+      return
+    }
+
+
 		axios
 			.post(
 				`http://localhost:4000/auth/signup`, //insert the API route here
