@@ -24,7 +24,7 @@ function Login() {
     try {
       await axios
         .post(
-          "http://localhost:4000/auth/login", //change the link
+          "http://localhost:4004/auth/login", //change the link
           {
             email,
             password,
@@ -45,7 +45,7 @@ function Login() {
           }
         })
     } catch (e) {
-      console.log("another catch", e)
+      console.log( e)
     }
   }
 
@@ -105,17 +105,17 @@ const Wrapper = styled.section`
   display: flex;
   align-items: center;
   img {
-    width: 70%;
-    position: absolute;
-    left: -120px;
+    width: 50%;
+    position: relative;
+    left: -2%;
     padding: 0;
     z-index: 100;
   }
 
-  @media (min-width: 700px) {
+  @media only screen and (max-width: 700px) {
     img {
-      width: 50%;
-      left: 0;
+      width: 60%;
+      left: -50px;
     }
   }
 `
@@ -129,9 +129,12 @@ const Right = styled.div`
   border-radius: 70px 0 0 70px;
   display: flex;
   align-items: center;
+  justify-content:center;
 
-  @media (min-width: 700px) {
-    position: absolute;
+  @media only screen and (max-width: 700px) {
+    padding: 0;
+    right: 0;
+    
   }
 `
 
@@ -158,11 +161,11 @@ const Form = styled.div`
     justify-content: center;
 
     input {
-      padding: 10px;
-      margin: 15px 0;
+      padding: 20px;
+      margin: 25px 0;
       border: none;
       border-bottom: 1px solid lightgrey;
-      font-size: 18px;
+      font-size: 20px;
       outline: none;
 
       :hover {
@@ -175,11 +178,11 @@ const Form = styled.div`
     }
 
     button {
-      padding: 10px;
+      padding: 20px;
       color: #ffff;
       background-color: #9ec5ab;
       font-weight: bold;
-      font-size: 18px;
+      font-size: 20px;
       margin: 20px 0 40px 0;
       border: none;
       cursor: pointer;
@@ -205,21 +208,22 @@ const Form = styled.div`
     }
   }
 
-  @media (min-width: 768px) {
-    right: 100px;
-    width: 60%;
+  @media only screen  and (max-width: 768px) {
+    right: 0;
+
+    width: 80%;
     height: 60%;
 
     form {
       input {
         margin: 40px 0;
         padding: 20px;
-        font-size: 20px;
+        font-size: 15px;
       }
 
       button {
         padding: 20px;
-        font-size: 20px;
+        font-size: 15px;
       }
     }
   }
