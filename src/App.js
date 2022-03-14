@@ -1,7 +1,31 @@
-// import './App.css'
+import React from "react";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import Home from "./Home";
+import Products from "./Products";
+import ProductDetail from "./ProductDetail";
+import GlobalStyle from "./GlobalStyle";
 
 function App() {
-  return <div >Hey, this is the user front end</div>
+  return (
+    // <div>
+    //   <nav>
+    //     <Link to="/">Home</Link>
+    //     <Link to="/products">Products</Link>
+    //   </nav>
+    //  </div>
+    <div className="App">
+      <GlobalStyle />
+      <BrowserRouter>
+      <Routes>
+        <Route path ="/" element= {<Home/>} />
+        <Route path ="/products" element= {<Products/>} />
+        <Route path ="/products/:productId" element= {<ProductDetail/>} />
+        
+      </Routes>
+      </BrowserRouter>
+      </div>
+      
+  );
 }
 
-export default App
+export default App;
