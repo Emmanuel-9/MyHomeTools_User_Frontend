@@ -41,7 +41,7 @@ function Cart() {
         </Bottom>
 
         <Hr />
-        
+
         <Bottom>
           <Product>
             <ProductDetail>
@@ -83,8 +83,8 @@ function Cart() {
             </p>
           </Count>
           <ProductPrice>Ksh 60,000</ProductPrice>
-        </Bottom> 
-  
+        </Bottom>
+
         <Hr />
       </Wrapper>
 
@@ -102,10 +102,8 @@ const Container = styled.div`
   height: 120vh;
 
   @media only screen and (min-width: 786px) {
-    height: 40%
+    height: 40%;
   }
-
-
 `
 
 const Wrapper = styled.div`
@@ -135,9 +133,9 @@ const TopButton = styled.button`
   }
 
   @media only screen and (min-width: 786px) {
-  border: none;
-  background-color: green;
-  color: white;
+    border: none;
+    background-color: green;
+    color: white;
   }
 `
 
@@ -257,4 +255,3 @@ const BottomButton = styled.button`
     color: ${(props) => props.type === "filled" && "white"};
   }
 `
-// @media only screen and min-width: 786px;
