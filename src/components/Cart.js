@@ -106,7 +106,9 @@ export default Cart
 const Container = styled.div`
   background: rgba(196, 196, 196, 0.2);
   height: 120vh;
+  
 `
+
 const Wrapper = styled.div`
   padding: 20px;
   align-items: center;
@@ -133,6 +135,12 @@ const TopButton = styled.button`
     box-shadow: 0 15px 15px rgba(0, 0, 0, 0.16);
     transform: translate(0, -5px);
   }
+
+  @media only screen and (min-width: 786px){
+  border: ${(props) => props.type === "filled" && "none"};
+  background-color: ${(props) => props.type === "filled" && "green"};
+  color: ${(props) => props.type === "filled" && "white"};
+}
 `
 
 const Bottom = styled.div`
