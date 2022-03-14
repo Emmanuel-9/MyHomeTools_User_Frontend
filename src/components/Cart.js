@@ -20,7 +20,7 @@ function Cart() {
         <TopButton type="filled">Continue Shopping </TopButton>
 
         <Bottom>
-          <Info>
+          {/* <Info> */}
             <Product>
               <ProductDetail>
                 <img src="/images/smart-tv.png" alt="tv" />
@@ -29,7 +29,7 @@ function Cart() {
                 </Details>
               </ProductDetail>
             </Product>
-          </Info>
+          {/* </Info> */}
           <Count>
             <p id="subtract" onClick={subtract}>
               -
@@ -45,7 +45,7 @@ function Cart() {
         <Hr />
 
         <Bottom>
-          <Info>
+          {/* <Info> */}
             <Product>
               <ProductDetail>
                 <img src="/images/dishwasher.png" alt="dishwasher" />
@@ -54,7 +54,7 @@ function Cart() {
                 </Details>
               </ProductDetail>
             </Product>
-          </Info>
+          {/* </Info> */}
           <Count>
             <p id="subtract" onClick={subtract}>
               -
@@ -70,7 +70,7 @@ function Cart() {
         <Hr />
 
         <Bottom>
-          <Info>
+          {/* <Info> */}
             <Product>
               <ProductDetail>
                 <img src="/images/deep-frier.png" alt="deep-frier" />
@@ -79,7 +79,7 @@ function Cart() {
                 </Details>
               </ProductDetail>
             </Product>
-          </Info>
+          {/* </Info> */}
           <Count>
             <p id="subtract" onClick={subtract}>
               -
@@ -137,6 +137,7 @@ const TopButton = styled.button`
   @media only screen and (min-width: 786px) {
     border: ${(props) => props.type === "filled" && "none"};
     background-color: ${(props) => props.type === "filled" && "green"};
+    /* hover: ${(props) => props.type === "filled" && "green"}; */
     color: ${(props) => props.type === "filled" && "white"};
   }
 `
@@ -147,10 +148,10 @@ const Bottom = styled.div`
   align-items: center;
   
 `
-const Info = styled.div`
-  /* flex: 3; */
-  /* border: 1px solid black; */
-`
+// const Info = styled.div`
+//   /* flex: 3; */
+//   /* border: 1px solid black; */
+// `
 const Product = styled.div`
   padding: 30px;
   display: flex;
@@ -162,6 +163,12 @@ const ProductDetail = styled.div`
     width: 100px;
   }
   display: flex;
+
+  @media only screen and (min-width: 786px) {
+    position: relative;
+    margin: 0 0 0 20px;
+  }
+  
 `
 const Details = styled.div`
   padding: 20px;
