@@ -20,16 +20,14 @@ function Cart() {
         <TopButton type="filled">Continue Shopping </TopButton>
 
         <Bottom>
-          {/* <Info> */}
-            <Product>
-              <ProductDetail>
-                <img src="/images/smart-tv.png" alt="tv" />
-                <Details>
-                  <ProductName>LED Backlit Smart TV</ProductName>
-                </Details>
-              </ProductDetail>
-            </Product>
-          {/* </Info> */}
+          <Product>
+            <ProductDetail>
+              <img src="/images/smart-tv.png" alt="tv" />
+              <Details>
+                <ProductName>LED Backlit Smart TV</ProductName>
+              </Details>
+            </ProductDetail>
+          </Product>
           <Count>
             <p id="subtract" onClick={subtract}>
               -
@@ -43,18 +41,16 @@ function Cart() {
         </Bottom>
 
         <Hr />
-
+        
         <Bottom>
-          {/* <Info> */}
-            <Product>
-              <ProductDetail>
-                <img src="/images/dishwasher.png" alt="dishwasher" />
-                <Details>
-                  <ProductName>Automatic Dishwasher</ProductName>
-                </Details>
-              </ProductDetail>
-            </Product>
-          {/* </Info> */}
+          <Product>
+            <ProductDetail>
+              <img src="/images/dishwasher.png" alt="dishwasher" />
+              <Details>
+                <ProductName>Automatic Dishwasher</ProductName>
+              </Details>
+            </ProductDetail>
+          </Product>
           <Count>
             <p id="subtract" onClick={subtract}>
               -
@@ -70,16 +66,13 @@ function Cart() {
         <Hr />
 
         <Bottom>
-          {/* <Info> */}
-            <Product>
-              <ProductDetail>
-                <img src="/images/deep-frier.png" alt="deep-frier" />
-                <Details>
-                  <ProductName>Deep Frier</ProductName>
-                </Details>
-              </ProductDetail>
-            </Product>
-          {/* </Info> */}
+          <Product>
+            <ProductDetail>
+              <img src="/images/deep-frier.png" alt="deep-frier" />
+
+              <ProductName>Deep Frier</ProductName>
+            </ProductDetail>
+          </Product>
           <Count>
             <p id="subtract" onClick={subtract}>
               -
@@ -90,7 +83,8 @@ function Cart() {
             </p>
           </Count>
           <ProductPrice>Ksh 60,000</ProductPrice>
-        </Bottom>
+        </Bottom> 
+  
         <Hr />
       </Wrapper>
 
@@ -106,6 +100,12 @@ export default Cart
 const Container = styled.div`
   background: rgba(196, 196, 196, 0.2);
   height: 120vh;
+
+  @media only screen and (min-width: 786px) {
+    height: 40%
+  }
+
+
 `
 
 const Wrapper = styled.div`
@@ -125,9 +125,9 @@ const TopButton = styled.button`
   cursor: pointer;
   margin: 0 0 20px 0;
   border-radius: 35px;
-  border: ${(props) => props.type === "filled" && "none"};
-  background-color: ${(props) => props.type === "filled" && "black"};
-  color: ${(props) => props.type === "filled" && "white"};
+  border: none;
+  background-color: black;
+  color: white;
   transition: all 0.25s cubic-bezier(0.02, 0.01, 0.47, 1);
   &:hover {
     box-shadow: 0 15px 15px rgba(0, 0, 0, 0.16);
@@ -135,10 +135,9 @@ const TopButton = styled.button`
   }
 
   @media only screen and (min-width: 786px) {
-    border: ${(props) => props.type === "filled" && "none"};
-    background-color: ${(props) => props.type === "filled" && "green"};
-    /* hover: ${(props) => props.type === "filled" && "green"}; */
-    color: ${(props) => props.type === "filled" && "white"};
+  border: none;
+  background-color: green;
+  color: white;
   }
 `
 
@@ -146,21 +145,21 @@ const Bottom = styled.div`
   display: flex;
   justify-content: space-around;
   align-items: center;
-  
 `
-// const Info = styled.div`
-//   /* flex: 3; */
-//   /* border: 1px solid black; */
-// `
 const Product = styled.div`
-  padding: 30px;
   display: flex;
+  width: 50%;
   justify-content: space-between;
-
 `
 const ProductDetail = styled.div`
+  padding: 0;
+  width: 100%;
+  /* border: 1px solid black; */
+
   img {
-    width: 100px;
+    width: 50%;
+    /* border: 1px solid black; */
+    padding: 0;
   }
   display: flex;
 
@@ -168,14 +167,15 @@ const ProductDetail = styled.div`
     position: relative;
     margin: 0 0 0 20px;
   }
-  
 `
 const Details = styled.div`
-  padding: 20px;
+  padding: 0 4px;
+  margin: 0 15px;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: space-around;
+  /* border: 1px solid black; */
 `
 const ProductName = styled.span``
 
@@ -228,8 +228,9 @@ const Total = styled.div`
   margin: 30px 20px 0 0;
 
   .total {
+    font-weight: bold;
     color: green;
-    font-size: 25px;
+    font-size: 20px;
   }
 `
 
@@ -248,6 +249,12 @@ const BottomButton = styled.button`
   &:hover {
     box-shadow: 0 15px 15px rgba(0, 0, 0, 0.16);
     transform: translate(0, -5px);
+  }
+
+  @media only screen and (min-width: 786px) {
+    border: ${(props) => props.type === "filled" && "none"};
+    background-color: ${(props) => props.type === "filled" && "green"};
+    color: ${(props) => props.type === "filled" && "white"};
   }
 `
 // @media only screen and min-width: 786px;
