@@ -91,11 +91,11 @@ function Cart() {
           </Count>
           <ProductPrice>Ksh 60,000</ProductPrice>
         </Bottom>
-       <Hr />
+        <Hr />
       </Wrapper>
 
       <Total>
-        <p className = "total" >Sub-Total: Ksh - 350,000</p>
+        <p className="total">Sub-Total: Ksh - 350,000</p>
       </Total>
       <BottomButton type="filled">Checkout</BottomButton>
     </Container>
@@ -106,7 +106,6 @@ export default Cart
 const Container = styled.div`
   background: rgba(196, 196, 196, 0.2);
   height: 120vh;
-  
 `
 
 const Wrapper = styled.div`
@@ -119,7 +118,6 @@ const Title = styled.div`
   text-align: center;
   font-size: 20px;
   line-height: 29.3px;
-  
 `
 const TopButton = styled.button`
   padding: 10px;
@@ -136,18 +134,18 @@ const TopButton = styled.button`
     transform: translate(0, -5px);
   }
 
-  @media only screen and (min-width: 786px){
-  border: ${(props) => props.type === "filled" && "none"};
-  background-color: ${(props) => props.type === "filled" && "green"};
-  color: ${(props) => props.type === "filled" && "white"};
-}
+  @media only screen and (min-width: 786px) {
+    border: ${(props) => props.type === "filled" && "none"};
+    background-color: ${(props) => props.type === "filled" && "green"};
+    color: ${(props) => props.type === "filled" && "white"};
+  }
 `
 
 const Bottom = styled.div`
   display: flex;
   justify-content: space-around;
   align-items: center;
-  border: 0px solid green;
+  
 `
 const Info = styled.div`
   /* flex: 3; */
@@ -157,6 +155,7 @@ const Product = styled.div`
   padding: 30px;
   display: flex;
   justify-content: space-between;
+
 `
 const ProductDetail = styled.div`
   img {
@@ -219,10 +218,9 @@ const Total = styled.div`
   border: 10 px solid red;
   position: absolute;
   right: 0;
-  margin:30px 20px 0 0;
-  
-  .total{
-    
+  margin: 30px 20px 0 0;
+
+  .total {
     color: green;
     font-size: 25px;
   }
