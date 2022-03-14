@@ -27,8 +27,11 @@ function fetchProducts(){
 return (
   // creating div for products
   <Container>
-    <Title>Best Seller Products</Title>
-    <Products>
+    <FeaturedContainer>
+    <h1>FEATURED PRODUCTS</h1>
+    <Image>
+        {<img id='top-image' src="/images/topping.png"></img> }
+      </Image><br/>
 
     <ProductCard>
       <Image>
@@ -63,6 +66,11 @@ return (
       <Button>View Product</Button>
 
     </ProductCard>
+    </FeaturedContainer>
+
+    <BestSellerContainer>
+    <h2>BEST SELLER PRODUCTS</h2>
+
     <ProductCard>
       <Image>
         <img src="/images/toster-sensor.png"></img>
@@ -85,26 +93,78 @@ return (
       <Button>View Product</Button>
 
     </ProductCard>
-    </Products>
-     
-      </Container> 
+
+    </BestSellerContainer>
+    <BrowsedProductsContainer>
+    <h3>BROWSE PRODUCTS</h3>
+    <ProductCard>
+      <Image>
+        <img src="/images/laundry.png"></img>
+      </Image>
+      <Content>
+        <h3>Laundry</h3> 
+      </Content>
+      
+
+    </ProductCard>
+    <ProductCard>
+      <Image>
+        <img src="/images/television.png"></img>
+      </Image>
+      <Content>
+        <h3>Television</h3>
+      </Content>
+      </ProductCard>
+    </BrowsedProductsContainer>
+    
+  </Container> 
 )
 
 
 };
 export default Card;
+
 const Container = styled.div`
 width: 1000px;
 height: 100vh;
 `
+const FeaturedContainer = styled.div`
+  border: solid black 1px;
+  margin: 0 auto;
+  display:flex;
 
-const Title = styled.div`
-text-align: center;
-color: #000000;
-font-weight: 500;
-font-size: 26px;
+  Image img top-image{
+    border: 1px solid black;
 
+  }
 `
+const BestSellerContainer = styled.div`
+  border: solid black 1px;
+  margin: 0 auto;
+  display:flex;
+  justify-content: center;
+  padding:50px 50px;
+  
+  h2{
+    left: 300px;
+  }
+`
+const BrowsedProductsContainer = styled.div`
+  border: solid black 1px;
+  margin: 0 auto;
+  display:flex;
+`
+// const Title = styled.div`
+// text-align: center;
+// color: #000000;
+// font-weight: 350;
+// font-size: 20px;
+// left: 300px;
+// top: 800px;
+// ;
+
+
+// `
 
 const Products = styled.div`
 display: flex;
@@ -116,7 +176,7 @@ height: 100vh;
 
 const ProductCard = styled.div`
 /* overflow: hidden; */
-padding:0 0 30px;
+padding:0 0 30px ;
 box-sizing:border-box;
 border:1px solid #c4cace;
 background-color:rgba(196,202,206,0.1) ;
@@ -129,7 +189,6 @@ display: flex;
 flex-direction: column;
 justify-content: center;
 align-items: center;
-font-family: 'Piazzolla';
 font-style: normal;
 font-weight: 100;
 font-size: 16px;
@@ -138,15 +197,12 @@ background: #FFFFFF;
 border: 1px solid #C4CACE;
 box-sizing: border-box;
 border-radius: 20px;
+margin:0 3% 0 0
 
 
 `
-const Content = styled.div`
-
-`
-const Button = styled.button`
-
-`
+const Content = styled.div``
+const Button = styled.button``
 
 const Image =styled.div`
 width: 100%;
@@ -154,7 +210,7 @@ width: 100%;
 align-items: center;
 display: flex;
 justify-content: center;
-
+padding:1% 0;
 img{
   width: 50%;
   /* align-self: center; */
@@ -179,41 +235,3 @@ img{
 
 
 
-// import React from 'react'
-// import styled from 'styled-components'
-
-// function Card (){
-//   return(
-//       <ProductCard>
-//         <Image><img src="images/juicer.png" /></Image>
-//        <h1>Sencor SSJ  Juicer</h1>
-//        <h2> Amount Khs 45,000</h2>
-       
-
-//       </ProductCard>
-//   )
-// }
-// const ProductCard = styled.div`
-//   width: 300px;
-//   /* background-image: url('images/juicer.png'); */
-//   height: 200px;
-
-  
-//   border: solid 1px black;
-//   & h2 {
-//     color: black;
-    
-//   }
-// `;
-// const Image = styled.div`
-// border: 1px solid black;
-
-// /* background-image: url('images/juicer.png');
-//   height: 2000px;
-//   width: 2000px; */
-//   /* background-image: url('images/juicer') ; */
-//   /* width: 100%;
-//   height: 100%; */
-// `
-
-// export default Card
