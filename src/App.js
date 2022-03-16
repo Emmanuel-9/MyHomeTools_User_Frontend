@@ -3,6 +3,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Home from "./Home";
 import Products from "./Products";
 import ProductDetail from "./ProductDetail";
+import Navbar from "./Navbar";
 import GlobalStyle from "./GlobalStyle";
 
 function App() {
@@ -16,6 +17,7 @@ function App() {
     <div className="App">
       <GlobalStyle />
       <BrowserRouter>
+      <Navbar />
       <Routes>
         <Route path ="/" element= {<Home/>} />
         <Route path ="/products" element= {<Products/>} />

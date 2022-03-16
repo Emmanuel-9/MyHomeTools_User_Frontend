@@ -2,7 +2,7 @@ import React from "react"
 import {useParams} from "react-router-dom"
 import productsData from "./productsData"
 import styled from "styled-components";
-import { useEffect, useRef, useState } from "react";
+import { useState } from "react";
 
 import minus from "./Images/icon-minus.svg";
 import plus from "./Images/icon-plus.svg";
@@ -98,14 +98,17 @@ export default ProductDetail
 
 const Body = styled.div`
 /* border: 15px solid green; */
+height: 50%;
+;
 `
 
 const Card = styled.div`
 /* border: 1px solid black; */
 display: flex;
 padding: 5% 0;
-/* justify-content: center; */
-
+/* border: 1px solid black; */
+position: relative;
+top: 10px;
 /* display: none; */
 /* flex-direction: column; */
 
@@ -113,12 +116,12 @@ padding: 5% 0;
   width: 80%;
   position: relative;
   left:180px;
-  top: 100px;
+  top: 5px;
 }
 `
 const Images = styled.div`
 /* border: 4px solid red; */
-width: 30%;
+width: 50%;
 margin: auto 2%;
 /* overflow: hidden; */
 
@@ -126,11 +129,28 @@ img{
   width: 100%;
 }
 
+@media only screen and (min-width: 786px){
+  width: 35%;
+  position: relative;
+  /* border: 2px solid blue; */
+  top:-25px;
+ 
+}
+
 `
 const Details = styled.div`
-/* border: 3px solid green; */
+/* border: 3px solid red; */
 width: 100%;
+margin-top: 100px;
 
+@media only screen and (min-width: 786px){
+  width: 80%;
+  position: relative;
+  /* border: 2px solid blue; */
+  top:-80px;
+  text-align: justify;
+ 
+}
 `
 const Same = styled.div`
 /* border: 2px solid blue; */
@@ -144,18 +164,19 @@ margin: 0 auto;
   /* border: 2px solid blue; */
   top:20px;
  
+ 
 }
 
 `
 const Name = styled.div`
   /* border: 3px solid grey; */
   display: flex;
-  /* justify-content: center; */
+  justify-content: center;
   /* align-self: center; */
   
   h1{
     margin: 1%  0;
-    font-size: 20px;
+    font-size: 35px;
     /* border: 3px solid green; */
     /* font-weight: bold; */
     /* text-transform: uppercase; */
@@ -164,9 +185,10 @@ const Name = styled.div`
 
   @media only screen and (min-width: 786px){
   width: 80%;
-  position: relative;
+  /* position: relative; */
+
   /* border: 3px solid red; */
-  justify-content: center;
+  /* justify-content: center; */
  
 }
 `
@@ -193,6 +215,8 @@ const Price = styled.div`
   width: 80%;
   position: relative;
   justify-content:space-around;
+  /* float: left; */
+  padding: 5px 150px 5px 150px;
   /* width: 40%; */
  
  
@@ -214,6 +238,8 @@ const Availability = styled.div`
   width: 80%;
   position: relative;
   justify-content:space-around;
+  padding: 5px 150px 5px 150px;
+  
  
 }
 
@@ -252,7 +278,6 @@ margin: 20px 0 0 0;
 const Quantity =styled.div`
 position: absolute;
 display: flex;
-width: 20%;
 padding: 10px;
 margin: 10px 10px 0px 10px;
 
@@ -266,7 +291,7 @@ margin: 10px 10px 0px 10px;
 @media only screen and (min-width: 786px){
   position: absolute;
   margin: 10px auto;
-  left: 450px;
+  left: 150px;
   
  }
 `
@@ -275,10 +300,11 @@ const Buttons = styled.div`
 display: flex;
 /* border: 1px solid lightgrey; */
 border-radius: 20px;
-width: 30%;
+width: 40%;
 margin: 10px auto;
+
 padding: 10px;
-/* background-color: grey; */
+background-color: #A6C2C1;
 justify-content: space-between;
 align-items: center;
 
@@ -289,7 +315,7 @@ div {
 
 
   img{
-    color: black !important;
+    
     padding: 10px;
 
     :hover{
@@ -305,18 +331,21 @@ div {
 
 @media only screen and (min-width: 786px){
   width: 18%;
+  border: 1px solid lightgrey;
+  background-color: #A6C2C1;
+  border-radius: 20px;
 
 }
 
 `
 const Checkout = styled.div`
 /* border: 1px solid black; */
-width: 30%;
+width: 70%;
+margin-left: 100px;
+
 display: flex;
 justify-content: center;
 margin: 0 auto;
-
-
 
 button{
   padding: 15px;
@@ -325,6 +354,7 @@ button{
   border: 1px solid lightgrey;
   border-radius: 20px;
   margin-right: 0;
+  background-color: #A6C2C1;
 }
 
 @media only screen and (min-width: 786px){
