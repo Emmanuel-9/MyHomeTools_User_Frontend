@@ -99,10 +99,15 @@ export default Cart
 
 const Container = styled.div`
   background: rgba(196, 196, 196, 0.2);
-  height: 120vh;
+  height: 150vh;
+  border: 4px solid red;
+ 
+  
 
   @media only screen and (min-width: 786px) {
     height: 40%;
+    width: 50%;
+    margin-top: 10px;
   }
 `
 
@@ -222,23 +227,30 @@ const Hr = styled.hr`
 const Total = styled.div`
   border: 10 px solid red;
   position: absolute;
-  right: 0;
-  margin: 30px 20px 0 0;
+  right: 0px;
+  margin: 10px 20px 0 0;
 
   .total {
     font-weight: bold;
     color: green;
     font-size: 20px;
   }
+
+  @media only screen and (min-width: 786px) {
+  width: 30%;
+  height: 5%;
+  margin: 20px 20px 0px 0;
+  left: 480px;
+  } 
 `
 
 const BottomButton = styled.button`
   padding: 10px;
   font-weight: 300;
   position: absolute;
-  right: 0;
+  right: 0px;
   cursor: pointer;
-  margin: 80px 20px 0px 0;
+  margin: 40px 20px 0px 0;
   border-radius: 35px;
   border: ${(props) => props.type === "filled" && "none"};
   background-color: ${(props) => props.type === "filled" && "black"};
@@ -253,5 +265,10 @@ const BottomButton = styled.button`
     border: ${(props) => props.type === "filled" && "none"};
     background-color: ${(props) => props.type === "filled" && "green"};
     color: ${(props) => props.type === "filled" && "white"};
-  }
+
+  width: 10%;
+  height: 5%;
+  margin: 10px 20px 0px 0px;
+  left: 750px;
+  } 
 `
