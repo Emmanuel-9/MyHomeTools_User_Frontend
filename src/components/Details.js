@@ -31,19 +31,15 @@ function Details() {
 export default Details
 
 const Container = styled.div`
-  /* border: 8px solid green; */
-  /* background: #6c6a6a; */
   height: 100vh;
   border-radius: 30px 40px 40px 40px;
-  
 `
 const Form = styled.div`
-  /* border: 3px solid red; */
   background-color: #6c6a6a;
   height: 900px;
   display: flex;
   flex-direction: column;
-  z-index:15;
+  z-index: 15;
   flex-wrap: wrap;
   justify-content: center;
   width: 30%;
@@ -51,7 +47,6 @@ const Form = styled.div`
   border-radius: 30px 40px 40px 40px;
 
   form {
-    /* border: 5px solid purple; */
     display: flex;
     flex-direction: column;
     flex-wrap: wrap;
@@ -63,34 +58,32 @@ const Form = styled.div`
   }
 
   .details {
-    /* border: 3px solid blue; */
     color: white;
     align-self: center;
-    /* margin: -10px 0 50px 0; */
   }
 
   .payment {
-      font-size: 25px;
-      color: white;
-      align-self: center;
-      margin-top: 50px;
-      margin-bottom: 5px;
+    font-size: 25px;
+    color: white;
+    align-self: center;
+    margin-top: 50px;
+    margin-bottom: 5px;
   }
 
   input {
     display: block;
     width: 90%;
-    padding: .5rem .8rem .5rem .8rem;
+    padding: 0.5rem 0.8rem 0.5rem 0.8rem;
     margin: 15px 0;
     border: none;
     border-bottom: 1px solid lightgrey;
     font-size: 18px;
     outline: none;
     color: white;
-    background-color:transparent;
-  } 
+    background-color: transparent;
+  }
   input::placeholder {
-      color: white;
+    color: white;
   }
 `
 const Button = styled.button`
