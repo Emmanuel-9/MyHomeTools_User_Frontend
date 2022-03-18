@@ -46,7 +46,7 @@ function Register() {
 		e.preventDefault()
 		axios
 			.post(
-				`http://localhost:4000/auth/signup`, //insert the API route here
+				`http://localhost:5004/auth/signup`, //insert the API route here
 				{
 					first_name: firstName,
 					last_name: lastName,
