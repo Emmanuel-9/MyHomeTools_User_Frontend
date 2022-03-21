@@ -1,6 +1,6 @@
 import React from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import Home from "./Home";
+import FeaturedProducts from "./Home";
 import Products from "./Products";
 import ProductDetail from "./ProductDetail";
 import Navbar from "./Navbar";
@@ -18,8 +18,10 @@ function App() {
       <GlobalStyle />
       <BrowserRouter>
       <Navbar />
+    
+
       <Routes>
-        <Route path ="/" element= {<Home/>} />
+        <Route path ="/" element= {<FeaturedProducts/>} />
         <Route path ="/products" element= {<Products/>} />
         <Route path ="/products/:productId" element= {<ProductDetail/>} />
         
