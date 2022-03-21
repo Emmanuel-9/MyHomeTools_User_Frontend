@@ -88,7 +88,6 @@ function Cart() {
         <Total>
           <p className="total">Sub-Total: Ksh - 350,000</p>
         </Total>
-        {/* <BottomButton type="filled">Checkout</BottomButton> */}
       </Wrapper>
 
       <CheckoutDetails />
@@ -100,24 +99,18 @@ export default Cart
 
 const Container = styled.div`
   background: rgba(196, 196, 196, 0.2);
-  /* height: 150vh; */
-  /* border: 3px solid green; */
   width: 100%;
   margin: 70px 0 0 0;
-  /* top: 0; */
   display: flex;
   flex-wrap: wrap;
 
   @media only screen and (min-width: 786px) {
-    /* background-color: blue; */
     margin: 0;
   }
 `
 
 const Wrapper = styled.div`
   padding: 20px;
-  /* border: 1px solid red; */
-  /* width: 50%; */
   align-items: center;
   height: 50vh;
   overflow-y: scroll;
@@ -126,7 +119,6 @@ const Wrapper = styled.div`
   }
 
   @media only screen and (min-width: 768px) {
-    /* background-color: red; */
     width: 50%;
     height: 90vh;
     overflow-y: scroll;
@@ -136,7 +128,6 @@ const Wrapper = styled.div`
   }
 `
 const Title = styled.div`
-  /* font-weight: 1500px; */
   font-style: bold;
   text-align: center;
   font-size: 20px;
@@ -181,28 +172,22 @@ const ProductDetail = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
-  /* border: 1px solid black; */
 
   img {
     width: 50%;
-    /* border: 1px solid black; */
     padding: 0;
   }
-  /* display: flex; */
 
   @media only screen and (min-width: 786px) {
-    /* position: relative; */
     margin: 0 0 0 20px;
   }
 `
 const ProductName = styled.span`
-  /* border: 1px solid black; */
   width: 100%;
   margin: 15px;
 `
 
 const ProductPrice = styled.div`
-  /* position: relative; */
   right: 0;
   align-items: right;
 `
@@ -212,13 +197,11 @@ const Count = styled.div`
   justify-content: space-around;
   align-items: center;
   padding: 10px;
-  /* width: 100px; */
   border: 1px solid grey;
   background-color: lightgrey;
   border-radius: 10px;
   height: 100%;
   width: 20%;
-  /* align-self: center; */
 
   #add {
     padding: 5px;
@@ -252,12 +235,7 @@ const Hr = styled.hr`
 
 const Total = styled.div`
   border: 10 px solid red;
-  /* position: absolute; */
-  /* right: 0px; */
-  /* border: 1px solid red; */
-  /* align-items: center; */
   margin: 10px 20px 0 0;
-  /* margin: auto; */
   display: flex;
   align-items: center;
   justify-content: center;
@@ -269,38 +247,7 @@ const Total = styled.div`
   }
 
   @media only screen and (min-width: 786px) {
-    /* width: 30%; */
-    /* height: 5%; */
     margin: 20px 20px 0px 0;
     left: 480px;
-  }
-`
-
-const BottomButton = styled.button`
-  padding: 10px;
-  font-weight: 300;
-  /* position: relative; */
-  /* right: 0px; */
-  cursor: pointer;
-  /* margin: 40px 20px 0px 0; */
-  border-radius: 35px;
-  border: ${(props) => props.type === "filled" && "none"};
-  background-color: ${(props) => props.type === "filled" && "black"};
-  color: ${(props) => props.type === "filled" && "white"};
-  transition: all 0.25s cubic-bezier(0.02, 0.01, 0.47, 1);
-  &:hover {
-    box-shadow: 0 15px 15px rgba(0, 0, 0, 0.16);
-    transform: translate(0, -5px);
-  }
-
-  @media only screen and (min-width: 786px) {
-    border: ${(props) => props.type === "filled" && "none"};
-    background-color: ${(props) => props.type === "filled" && "green"};
-    color: ${(props) => props.type === "filled" && "white"};
-
-    /* width: 10%; */
-    /* height: 5%; */
-    /* margin: 10px 20px 0px 0px; */
-    /* left: 750px; */
   }
 `

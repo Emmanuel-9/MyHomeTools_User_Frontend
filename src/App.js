@@ -1,6 +1,6 @@
 import "./App.css"
 import { BrowserRouter, Routes, Route } from "react-router-dom"
-import Card from "./components/Card"
+
 import Register from "./components/Register"
 import Login from "./components/Login"
 import Cart from "./components/Cart"
