@@ -1,5 +1,6 @@
 import styled from "styled-components"
 import React, { useState } from "react"
+import CheckoutDetails from "./CheckoutDetails"
 
 function Cart() {
   const [count, setCount] = useState(0)
@@ -23,9 +24,8 @@ function Cart() {
           <Product>
             <ProductDetail>
               <img src="/images/smart-tv.png" alt="tv" />
-              <Details>
-                <ProductName>LED Backlit Smart TV</ProductName>
-              </Details>
+
+              <ProductName>LED Backlit Smart TV</ProductName>
             </ProductDetail>
           </Product>
           <Count>
@@ -46,9 +46,8 @@ function Cart() {
           <Product>
             <ProductDetail>
               <img src="/images/dishwasher.png" alt="dishwasher" />
-              <Details>
-                <ProductName>Automatic Dishwasher</ProductName>
-              </Details>
+
+              <ProductName>Automatic Dishwasher</ProductName>
             </ProductDetail>
           </Product>
           <Count>
@@ -86,34 +85,55 @@ function Cart() {
         </Bottom>
 
         <Hr />
+        <Total>
+          <p className="total">Sub-Total: Ksh - 350,000</p>
+        </Total>
+        {/* <BottomButton type="filled">Checkout</BottomButton> */}
       </Wrapper>
 
-      <Total>
-        <p className="total">Sub-Total: Ksh - 350,000</p>
-      </Total>
-      <BottomButton type="filled">Checkout</BottomButton>
+      <CheckoutDetails />
     </Container>
   )
 }
+
 export default Cart
 
 const Container = styled.div`
   background: rgba(196, 196, 196, 0.2);
-  height: 150vh;
-  border: 4px solid red;
- 
-  
+  /* height: 150vh; */
+  /* border: 3px solid green; */
+  width: 100%;
+  margin: 70px 0 0 0;
+  /* top: 0; */
+  display: flex;
+  flex-wrap: wrap;
 
   @media only screen and (min-width: 786px) {
-    height: 40%;
-    width: 50%;
-    margin-top: 10px;
+    /* background-color: blue; */
+    margin: 0;
   }
 `
 
 const Wrapper = styled.div`
   padding: 20px;
+  /* border: 1px solid red; */
+  /* width: 50%; */
   align-items: center;
+  height: 50vh;
+  overflow-y: scroll;
+  ::-webkit-scrollbar {
+    display: none;
+  }
+
+  @media only screen and (min-width: 768px) {
+    /* background-color: red; */
+    width: 50%;
+    height: 90vh;
+    overflow-y: scroll;
+    ::-webkit-scrollbar {
+      display: none;
+    }
+  }
 `
 const Title = styled.div`
   /* font-weight: 1500px; */
@@ -152,11 +172,15 @@ const Bottom = styled.div`
 const Product = styled.div`
   display: flex;
   width: 50%;
+  margin: 10px 0;
   justify-content: space-between;
 `
 const ProductDetail = styled.div`
   padding: 0;
   width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
   /* border: 1px solid black; */
 
   img {
@@ -164,26 +188,21 @@ const ProductDetail = styled.div`
     /* border: 1px solid black; */
     padding: 0;
   }
-  display: flex;
+  /* display: flex; */
 
   @media only screen and (min-width: 786px) {
-    position: relative;
+    /* position: relative; */
     margin: 0 0 0 20px;
   }
 `
-const Details = styled.div`
-  padding: 0 4px;
-  margin: 0 15px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: space-around;
+const ProductName = styled.span`
   /* border: 1px solid black; */
+  width: 100%;
+  margin: 15px;
 `
-const ProductName = styled.span``
 
 const ProductPrice = styled.div`
-  position: relative;
+  /* position: relative; */
   right: 0;
   align-items: right;
 `
@@ -192,14 +211,19 @@ const Count = styled.div`
   display: flex;
   justify-content: space-around;
   align-items: center;
-  width: 100px;
+  padding: 10px;
+  /* width: 100px; */
   border: 1px solid grey;
   background-color: lightgrey;
   border-radius: 10px;
   height: 100%;
+  width: 20%;
+  /* align-self: center; */
 
   #add {
     padding: 5px;
+    font-size: 20px;
+    font-weight: bold;
 
     :hover {
       background: lightgrey;
@@ -210,6 +234,8 @@ const Count = styled.div`
 
   #subtract {
     padding: 5px;
+    font-size: 20px;
+    font-weight: bold;
 
     :hover {
       background: lightgrey;
@@ -226,9 +252,15 @@ const Hr = styled.hr`
 
 const Total = styled.div`
   border: 10 px solid red;
-  position: absolute;
-  right: 0px;
+  /* position: absolute; */
+  /* right: 0px; */
+  /* border: 1px solid red; */
+  /* align-items: center; */
   margin: 10px 20px 0 0;
+  /* margin: auto; */
+  display: flex;
+  align-items: center;
+  justify-content: center;
 
   .total {
     font-weight: bold;
@@ -237,20 +269,20 @@ const Total = styled.div`
   }
 
   @media only screen and (min-width: 786px) {
-  width: 30%;
-  height: 5%;
-  margin: 20px 20px 0px 0;
-  left: 480px;
-  } 
+    /* width: 30%; */
+    /* height: 5%; */
+    margin: 20px 20px 0px 0;
+    left: 480px;
+  }
 `
 
 const BottomButton = styled.button`
   padding: 10px;
   font-weight: 300;
-  position: absolute;
-  right: 0px;
+  /* position: relative; */
+  /* right: 0px; */
   cursor: pointer;
-  margin: 40px 20px 0px 0;
+  /* margin: 40px 20px 0px 0; */
   border-radius: 35px;
   border: ${(props) => props.type === "filled" && "none"};
   background-color: ${(props) => props.type === "filled" && "black"};
@@ -266,9 +298,9 @@ const BottomButton = styled.button`
     background-color: ${(props) => props.type === "filled" && "green"};
     color: ${(props) => props.type === "filled" && "white"};
 
-  width: 10%;
-  height: 5%;
-  margin: 10px 20px 0px 0px;
-  left: 750px;
-  } 
+    /* width: 10%; */
+    /* height: 5%; */
+    /* margin: 10px 20px 0px 0px; */
+    /* left: 750px; */
+  }
 `

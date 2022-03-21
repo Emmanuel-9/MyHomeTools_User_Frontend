@@ -4,7 +4,6 @@ import Card from "./components/Card"
 import Register from "./components/Register"
 import Login from "./components/Login"
 import Cart from "./components/Cart"
-import Details from "./components/Details"
 import Products from "./Products"
 import ProductDetail from "./ProductDetail"
 import Home from "./Home"
@@ -26,7 +25,7 @@ function App() {
 
           <Route path="/products/:productId" element={<ProductDetail />} />
           <Route path="/cart" element={<Cart />} />
-          <Route path="/details" element={<Details />} />
+          {/* <Route path="/details" element={<CheckoutDetails />} /> */}
 
           <Route path="/" element={<Home />} />
         </Routes>

@@ -1,8 +1,8 @@
 import styled from "styled-components"
 
-function Details() {
+function CheckoutDetails() {
   return (
-    <Container>
+    <Container2>
       <Form>
         <h1 className="details">Your Details</h1>
         <form>
@@ -25,34 +25,47 @@ function Details() {
           <Button> Checkout </Button>
         </form>
       </Form>
-    </Container>
+    </Container2>
   )
 }
-export default Details
+export default CheckoutDetails
 
-const Container = styled.div`
-  height: 100vh;
-  border-radius: 30px 40px 40px 40px;
+const Container2 = styled.div`
+  /* height: 100vh; */
+  /* border: 1px solid lightgrey; */
+  width: 100%;
+  /* border-radius: 30px 40px 40px 40px; */
+  margin: 40px;
+
+  @media only screen and (min-width: 786px) {
+    /* align-items: center; */
+    margin: 40px auto;
+    /* background-color: green; */
+    width: 30%;
+    /* height: 100vh; */
+  }
 `
 const Form = styled.div`
   background-color: #6c6a6a;
-  height: 900px;
   display: flex;
+  width: 100%;
   flex-direction: column;
-  z-index: 15;
-  flex-wrap: wrap;
   justify-content: center;
-  width: 30%;
-  margin: 20px 50px 0 300px;
-  border-radius: 30px 40px 40px 40px;
+  border-radius: 40px;
+  border: 1px solid lightgrey;
+
+  h1 {
+    margin-top: 20px;
+  }
 
   form {
     display: flex;
     flex-direction: column;
     flex-wrap: wrap;
-    padding: 20px 50px;
-    margin: 15px 0;
-    border-bottom: 1px solid lightgrey;
+    padding: 10px 50px;
+    /* margin: 15px 40px; */
+    width: 100%;
+    /* border-bottom: 1px solid lightgrey; */
     font-size: 18px;
     outline: none;
   }
@@ -72,7 +85,7 @@ const Form = styled.div`
 
   input {
     display: block;
-    width: 90%;
+    /* width: 90%; */
     padding: 0.5rem 0.8rem 0.5rem 0.8rem;
     margin: 15px 0;
     border: none;
@@ -85,20 +98,46 @@ const Form = styled.div`
   input::placeholder {
     color: white;
   }
+
+  @media only screen and (min-width: 786px) {
+    /* align-items: center; */
+    margin: 40px auto;
+    /* background-color: green; */
+    height: 100%;
+    form{
+      height: 100%;
+
+      input{
+        margin-bottom: 40px;
+      }
+
+    }
+    /* width: 30%; */
+    /* height: 100vh; */
+  }
 `
 const Button = styled.button`
   padding: 20px;
+  margin: 15px 0;
   font-weight: 300;
   cursor: pointer;
-  margin: 10px 0 20px 120px;
+  /* margin: 10px 0 20px 120px; */
   border-radius: 35px;
   border: none;
-  width: 200px;
+  /* width: 200px; */
   background-color: black;
   color: white;
   transition: all 0.25s cubic-bezier(0.02, 0.01, 0.47, 1);
+
   &:hover {
     box-shadow: 0 15px 15px rgba(0, 0, 0, 0.16);
     transform: translate(0, -5px);
+  }
+
+  
+  @media only screen and (min-width: 786px) {
+    /* align-items: center; */
+    margin: 40px;
+    
   }
 `
