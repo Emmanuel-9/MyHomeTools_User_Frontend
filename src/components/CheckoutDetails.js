@@ -31,18 +31,12 @@ function CheckoutDetails() {
 export default CheckoutDetails
 
 const Container2 = styled.div`
-  /* height: 100vh; */
-  /* border: 1px solid lightgrey; */
   width: 100%;
-  /* border-radius: 30px 40px 40px 40px; */
   margin: 40px;
 
   @media only screen and (min-width: 786px) {
-    /* align-items: center; */
     margin: 40px auto;
-    /* background-color: green; */
     width: 30%;
-    /* height: 100vh; */
   }
 `
 const Form = styled.div`
@@ -63,9 +57,7 @@ const Form = styled.div`
     flex-direction: column;
     flex-wrap: wrap;
     padding: 10px 50px;
-    /* margin: 15px 40px; */
     width: 100%;
-    /* border-bottom: 1px solid lightgrey; */
     font-size: 18px;
     outline: none;
   }
@@ -85,7 +77,6 @@ const Form = styled.div`
 
   input {
     display: block;
-    /* width: 90%; */
     padding: 0.5rem 0.8rem 0.5rem 0.8rem;
     margin: 15px 0;
     border: none;
@@ -100,9 +91,7 @@ const Form = styled.div`
   }
 
   @media only screen and (min-width: 786px) {
-    /* align-items: center; */
     margin: 40px auto;
-    /* background-color: green; */
     height: 100%;
     form{
       height: 100%;
@@ -112,8 +101,6 @@ const Form = styled.div`
       }
 
     }
-    /* width: 30%; */
-    /* height: 100vh; */
   }
 `
 const Button = styled.button`
@@ -121,10 +108,8 @@ const Button = styled.button`
   margin: 15px 0;
   font-weight: 300;
   cursor: pointer;
-  /* margin: 10px 0 20px 120px; */
   border-radius: 35px;
   border: none;
-  /* width: 200px; */
   background-color: black;
   color: white;
   transition: all 0.25s cubic-bezier(0.02, 0.01, 0.47, 1);
@@ -136,7 +121,6 @@ const Button = styled.button`
 
   
   @media only screen and (min-width: 786px) {
-    /* align-items: center; */
     margin: 40px;
     
   }
