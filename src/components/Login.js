@@ -23,7 +23,7 @@ function Login() {
     e.preventDefault()
     axios
       .post(
-        "http://localhost:4000/auth/login", //change the link
+        "http://localhost:4000/auth/login",
         {
           email,
           password,
@@ -49,7 +49,6 @@ function Login() {
       </Wrapper>
       <Right>
         <Form>
-          {/* <Text> myHome Tools </Text> */}
           <h1> Hello, Welcome Back </h1>
           <form onSubmit={login}>
             <input
