@@ -76,15 +76,9 @@ const Nav = styled.div`
   justify-content: space-between;
 
   max-width: 1152px;
-  /* height: 110px; */
-  /* position: absolute;
-  top: 0; */
-  /* position: fixed; */
   top: 0;
-  /* background-color: yellow; */
   margin: auto;
   border-bottom: solid 1px hsl(223, 64%, 95%);
-  /* z-index: 1000; */
 
   @media (max-width: 1212px) {
     margin: 0 30px;
@@ -93,7 +87,6 @@ const Nav = styled.div`
   @media (max-width: 768px) {
     position: fixed;
     top: 0;
-    /* left: 0; */
     background-color: white;
     width: 100%;
     height: 70px;
@@ -130,11 +123,6 @@ const Links = styled.div`
       display: none;
     }
 
-    /* .link{
-        text-decoration: none;
-        color: grey;
-    } */
-
     .link {
       text-decoration: none;
     }
@@ -165,11 +153,6 @@ const Links = styled.div`
         }
       }
     }
-
-    /* .link{
-        color: black;
-        text-decoration: none;
-    } */
     li:nth-of-type(1) {
       &:hover {
         &::after {
