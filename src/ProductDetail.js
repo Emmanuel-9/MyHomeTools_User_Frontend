@@ -1,8 +1,8 @@
 import React from "react"
 import {useParams} from "react-router-dom"
-import productsData from "./productsData"
+import axios from "axios";
 import styled from "styled-components";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 import minus from "./Images/icon-minus.svg";
 import plus from "./Images/icon-plus.svg";
@@ -11,9 +11,14 @@ import cart from "./Images/icon-cart.svg";
 
    function ProductDetail() {
     const [quantity, setQuantity] = useState(0);
+    const [products, setProducts] = useState([]);
     const {productId} = useParams()
-    const thisProduct = productsData.find(prod => prod.id === productId)
+    // const thisProduct = productsData.find(prod => prod.id === productId)
 
+    useEffect(() =>{
+      fetchProduct()
+    }, []);
+    
     //handlers
   const quantityHandler = (increment) => {
   if (increment) {
@@ -22,37 +27,52 @@ import cart from "./Images/icon-cart.svg";
     setQuantity((prev) => (prev === 0 ? prev : prev - 1));
   }
   };
+
+   //create function 
+  const fetchProduct = () =>{
+    axios
+    .get(`http://localhost:5000/product/${productId}`)
+    .then((res) =>{
+      console.log(res);
+      console.log(res.data);
+      setProducts(res.data);
+    })
+    .catch((err) =>{
+      console.log(err);
+    });
+  };
     
     return (
-        <Body>
-        <Card>
+      
+      <Body>
+            <Card>
             <Images>  
-            <img src="/images/coffeemaker.png" alt="display image"/>
-           
+            {/* <img src="/images/coffeemaker.png" alt="display image"/> */}
+            <img className="product-image" src = {products.image} alt='' />
             </Images>
-
+            
              <Details>
                <Same>
 
                 <Name>
-                  <h1>{thisProduct.name}</h1>
+                  <h1>{products.product_name}</h1>
                 </Name>
 
            <Price>
-              <p className="original-price"> ksh  {thisProduct.price}</p>
-              <p  className="discounted-price"> ksh  {thisProduct.discount}</p>
+              <p className="original-price"> ksh  {products.price}</p>
+              <p  className="discounted-price"> ksh  {products.price - products.discount}</p>
             </Price>
             
             <Availability>
               <p>Availability: </p>
-              <p className="available">  {thisProduct.availability}</p>
+              <p className="available">  {products.availability}</p>
            
             </Availability>
                </Same>
              
              <Description>
               <p className="description-heading"> Product Description </p>
-              <p className="description-body">  {thisProduct.description}</p>
+              <p className="description-body">  {products.description}</p>
             </Description>
             
             <Quantity>
@@ -88,11 +108,10 @@ import cart from "./Images/icon-cart.svg";
               </div>
 </Checkout>
             </Details>
-            </Card>
-        
+            </Card>        
         </Body>
     )
-}
+                }
  
 export default ProductDetail
 
