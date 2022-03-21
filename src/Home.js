@@ -16,7 +16,7 @@ import axios from "axios";
   //create function 
   const fetchProducts = () =>{
     axios
-    .get('http://localhost:5000/product/all')
+    .get('http://localhost:5004/product/all')
     .then((res) =>{
       console.log(res);
       setProducts(res.data);
@@ -157,11 +157,12 @@ img{
 .item-container{
   position: relative;
   top: 50px;
-  height: 800px;
-  width: 1000px;
-  left: 280px;
+  /* height: 800px; */
+  /* width: 1000px; */
+  /* left: 280px; */
   border: 3px solid green;
   display: flex;
+  flex-wrap: wrap;
   
 }
 .card {
@@ -172,6 +173,7 @@ img{
   width: 300px;
   border-radius: 5px;
   padding: 1em;
+  margin: 20px;
   box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
 }
 .product-image {
