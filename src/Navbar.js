@@ -1,88 +1,84 @@
-import Logo from "./Images/logo.png";
-import Cart from "./Images/icon-cart.svg";
-import Avatar from "./Images/image-avatar.png";
-import Burger from "./Images/icon-menu.svg";
-import Close from "./Images/icon-close.svg";
+import Logo from "./Images/logo.png"
+import Cart from "./Images/icon-cart.svg"
+import Avatar from "./Images/image-avatar.png"
+import Burger from "./Images/icon-menu.svg"
+import Close from "./Images/icon-close.svg"
 
-import styled from "styled-components";
-import { useState } from "react";
-import { Link } from "react-router-dom";
+import styled from "styled-components"
+import { useState } from "react"
+import { Link } from "react-router-dom"
 
-import CartComp from "./Cart";
+import CartComp from "./Cart"
 
 const Navbar = () => {
-    const [show, setShow] = useState(false);
-    const [showCart, setshowCart] = useState(false); 
+  const [show, setShow] = useState(false)
+  const [showCart, setshowCart] = useState(false)
 
-    return (
-        <Nav>
-            <Links>
+  return (
+    <Nav>
+      <Links>
+        <img
+          src={Burger}
+          alt={Burger}
+          className="burger"
+          onClick={() => setShow((prev) => !prev)}
+        />
+        <img src={Logo} alt={Logo} className="logo" />
+
+        <ul className={show ? "show" : ""}>
+          <li>
             <img
-            src={Burger}
-            alt={Burger}
-            className="burger"
-            onClick={() => setShow((prev) => !prev)}
-          />
-            <img src={Logo} alt={Logo} className="logo" />
-
-            <ul className={show ? "show" : ""}>
-                <li>
-                    <img
-                    src={Close}
-                    alt={Close}
-                    className="close"
-                    onClick={() => setShow((prev) => !prev)}
-                  />
-                </li>
-               <Link className="link" to='/'>
-                <li >Home</li>
-               </Link> 
-               <Link className="link" to='products'>
-               <li>Products</li>
-               </Link>
+              src={Close}
+              alt={Close}
+              className="close"
+              onClick={() => setShow((prev) => !prev)}
+            />
+          </li>
+          <Link className="link" to="/">
+            <li>Home</li>
+          </Link>
+          <Link className="link" to="products">
+            <li>Products</li>
+          </Link>
           <li>Contact Us</li>
           <li>My Cart</li>
           <li>About</li>
-          </ul>
-          <div
+        </ul>
+        <div
           className={show ? "overlay showOverlay" : "overlay"}
-          onClick={() => setShow((prev) => !prev)}>
+          onClick={() => setShow((prev) => !prev)}
+        ></div>
+      </Links>
 
-        </div>
-
-            </Links>
-
-            <Profile>
-                <div className="cart">
-                    <div className="item-count"></div>
-                    <img
+      <Profile>
+        <div className="cart">
+          <div className="item-count"></div>
+          <img
             src={Cart}
             alt={Cart}
             onClick={() => setshowCart((prev) => !prev)}
           />
-            {showCart && <CartComp />}
-                </div>
-                <div className="avatar">
-               <img src={Avatar} alt={Avatar} />
-                </div>
-            </Profile>
-        </Nav>
-
-    );
+          {showCart && <CartComp />}
+        </div>
+        <div className="avatar">
+          <img src={Avatar} alt={Avatar} />
+        </div>
+      </Profile>
+    </Nav>
+  )
 }
 
-export default Navbar;
+export default Navbar
 
 const Nav = styled.div`
-display: flex;
+  display: flex;
   align-items: center;
   justify-content: space-between;
 
   max-width: 1152px;
-  height: 110px;
+  top: 0;
   margin: auto;
   border-bottom: solid 1px hsl(223, 64%, 95%);
-  z-index: 1000;
 
   @media (max-width: 1212px) {
     margin: 0 30px;
@@ -91,7 +87,6 @@ display: flex;
   @media (max-width: 768px) {
     position: fixed;
     top: 0;
-    left: 0;
     background-color: white;
     width: 100%;
     height: 70px;
@@ -99,79 +94,65 @@ display: flex;
     margin: 0;
     border-bottom: none;
   }
-
 `
 
 const Links = styled.div`
-display: flex;
-align-items: center;
-height:100%;
+  display: flex;
+  align-items: center;
+  height: 100%;
 
-.logo{
+  .logo {
     width: 230px;
     margin-right: 10px;
     margin-left: -80px;
-}
+  }
 
-.burger{
+  .burger {
     margin-right: 80px;
     cursor: pointer;
     display: none;
-}
+  }
 
-ul{
+  ul {
     list-style-type: none;
     display: flex;
     align-items: center;
     height: 100%;
 
-    .close{
-      display: none;  
+    .close {
+      display: none;
     }
-    
-    /* .link{
-        text-decoration: none;
-        color: grey;
-    } */
 
-.link{
-    text-decoration: none;
-}
+    .link {
+      text-decoration: none;
+    }
 
-    li{
-        display: flex;
-        align-items: center;
-        margin: 0 15px;
-        color: hsl(219, 9%, 45%);
-        cursor: pointer;
-        height: 100%;
-        position: relative;
+    li {
+      display: flex;
+      align-items: center;
+      margin: 0 15px;
+      color: hsl(219, 9%, 45%);
+      cursor: pointer;
+      height: 100%;
+      position: relative;
 
-        &::after {
+      &::after {
         content: "";
         height: 4px;
         width: 0%;
-        background-color: #A6C2C1;
+        background-color: #a6c2c1;
 
         position: absolute;
         bottom: 0;
         left: 0;
         transition: 500ms ease;
-
-        
       }
       &:hover {
         &::after {
           width: 100%;
         }
       }
-
     }
-
-    /* .link{
-        color: black;
-        text-decoration: none;
-    } */
     li:nth-of-type(1) {
       &:hover {
         &::after {
@@ -179,8 +160,8 @@ ul{
         }
       }
     }
-}
-@media (max-width: 768px) {
+  }
+  @media (max-width: 768px) {
     .burger {
       display: block;
     }
@@ -233,10 +214,10 @@ ul{
       pointer-events: all;
     }
   }
-`;
+`
 
 const Profile = styled.div`
- display: flex;
+  display: flex;
   align-items: center;
 
   .cart {
@@ -250,7 +231,7 @@ const Profile = styled.div`
     }
 
     .item-count {
-      background-color: #A6C2C1;
+      background-color: #a6c2c1;
       font-size: 9px;
       width: 18px;
       font-weight: bold;
@@ -280,5 +261,5 @@ const Profile = styled.div`
         width: 60px;
       }
     }
-  }`
-
+  }
+`

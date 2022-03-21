@@ -19,7 +19,7 @@ import axios from "axios";
   //create function 
   const fetchProducts = () =>{
     axios
-    .get('http://localhost:5000/product/all')
+    .get('http://localhost:5004/product/all')
     .then((res) =>{
       console.log(res);
       setProducts(res.data);
