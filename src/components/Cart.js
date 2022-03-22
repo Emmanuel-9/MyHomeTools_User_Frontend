@@ -11,16 +11,16 @@ const Cart = () => {
       <Content>
         <div className="thumbnail">
           <img src={productImage} alt="Coffee Maker" />
-        </div>
-        <div className="details">
-          <p>
-            The best coffee maker...
-            <br />
-            ksh 25x2 <strong>ksh50.00</strong>
-          </p>
-        </div>
-        <div className="delete">
-          <img src={deleteIcon} alt="delete" />
+          <div className="details">
+            <p>
+              The best coffee maker...
+              <br />
+              ksh 25x2 <strong>ksh50.00</strong>
+            </p>
+          </div>
+          <div className="delete">
+            <img src={deleteIcon} alt="delete" />
+          </div>
         </div>
       </Content>
 
@@ -86,19 +86,27 @@ const Content = styled.div`
   line-height: 1.6;
   display: flex;
   align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
 
   .thumbnail {
     display: flex;
     align-items: center;
-    margin-right: 20px;
+    /* margin-right: 20px; */
+    justify-content: space-between;
+    border-bottom: 1px solid black;
+    padding: 10px 0;
+    width: 100%;
     img {
-      width: 50px;
+      margin: auto;
+      width: 25%;
+      /* width: 50px;
       height: 50px;
-      border-radius: 5px;
+      border-radius: 5px; */
       cursor: auto;
     }
   }
   .details {
-    margin-right: 20px;
+    /* margin-right: 20px; */
   }
 `
