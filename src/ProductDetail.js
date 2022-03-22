@@ -99,7 +99,7 @@ import cart from "./Images/icon-cart.svg";
                   </div>
             </Buttons>
 
-<Checkout>
+            <Checkout>
 
               <div className="add-to-cart">
                 <button>
