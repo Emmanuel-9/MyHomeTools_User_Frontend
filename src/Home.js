@@ -136,7 +136,7 @@ font-weight: 100;
   width: 500px;
   /* border: 1px solid green; */
   right: 30px;
-  top: 150px;
+  top: 130px;
 
   img{
     width: 100%;
@@ -180,7 +180,7 @@ border-color:#DDDDDD;
 `
 const Container = styled.div`
 position: relative;
-top: 550px;
+top: 600px;
 text-align:center;
 
 .break{
@@ -202,10 +202,8 @@ img{
 .item-container{
   position: relative;
   top: 50px;
-  /* height: 800px; */
-  /* width: 1000px; */
-  /* left: 280px; */
-  border: 3px solid green;
+  left: 60px;
+  /* border: 3px solid green; */
   display: flex;
   flex-wrap: wrap;
   
@@ -215,9 +213,6 @@ img{
   /* position: relative; */
   border: 3px solid black;
   text-align: center;
-  /* width: 40%; */
-  /* padding: 100px; */
-  /* width: 300px; */
   border-radius: 5px;
   padding: 1em;
   /* left:35px; */
