@@ -3,7 +3,7 @@ import Cart from "../Images/icon-cart.svg"
 import Avatar from "../Images/image-avatar.png"
 import Burger from "../Images/icon-menu.svg"
 import Close from "../Images/icon-close.svg"
-import HistoryIcon from '@mui/icons-material/History';
+import HistoryIcon from "@mui/icons-material/History"
 
 import styled from "styled-components"
 import { useState } from "react"
@@ -59,15 +59,23 @@ const Navbar = () => {
           <img
             src={Cart}
             alt={Cart}
-            onClick={() => setshowCart((prev) => !prev)}
+            onClick={() => {
+              setshowHistory(false)
+              setshowCart((prev) => !prev)
+            }}
           />
           {showCart && <CartComp />}
         </div>
         <div className="history">
-        <HistoryIcon 
-        onClick={() => setshowHistory((prev) => !prev)}
-        />
-        { showHistory && <HistoryComponent /> }
+
+          <HistoryIcon
+            className="history-icon"
+            onClick={() => {
+              setshowCart(false)
+              setshowHistory((prev) => !prev)
+            }}
+          />
+          {showHistory && <HistoryComponent />}
         </div>
         <div className="avatar">
           <img src={Avatar} alt={Avatar} />
@@ -230,7 +238,6 @@ const Profile = styled.div`
   align-items: center;
 
   .cart {
-    border: 1px solid black;
     position: relative;
     margin-right: 50px;
 
@@ -252,7 +259,16 @@ const Profile = styled.div`
       z-index: 2;
     }
   }
-
+  .history {
+    position: relative;
+    margin-right: 80px;
+    .history-icon {
+      color: grey;
+      cursor: pointer;
+      transition: 200ms ease;
+      z-index: 1;
+    }
+  }
   .avatar {
     img {
       width: 80px;
