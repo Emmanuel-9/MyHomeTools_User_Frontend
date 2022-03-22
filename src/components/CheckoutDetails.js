@@ -93,13 +93,12 @@ const Form = styled.div`
   @media only screen and (min-width: 786px) {
     margin: 40px auto;
     height: 100%;
-    form{
+    form {
       height: 100%;
 
-      input{
+      input {
         margin-bottom: 40px;
       }
-
     }
   }
 `
@@ -119,9 +118,7 @@ const Button = styled.button`
     transform: translate(0, -5px);
   }
 
-  
   @media only screen and (min-width: 786px) {
     margin: 40px;
-    
   }
 `

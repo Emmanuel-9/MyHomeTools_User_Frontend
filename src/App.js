@@ -1,15 +1,14 @@
 import "./App.css"
 import { BrowserRouter, Routes, Route } from "react-router-dom"
-import FeaturedProducts from "./Home";
+import FeaturedProducts from "./components/Home"
 import Register from "./components/Register"
 import Login from "./components/Login"
 import CartCheckout from "./components/CartCheckout"
-import Products from "./Products"
-import ProductDetail from "./ProductDetail"
-import Home from "./Home"
-import Navbar from "./Navbar"
+import ProductDetail from "./components/ProductDetail"
+import Home from "./components/Home"
+import Navbar from "./components/Navbar"
 
-import GlobalStyle from "./GlobalStyle"
+import GlobalStyle from "./components/GlobalStyle"
 
 function App() {
   return (
@@ -20,8 +19,7 @@ function App() {
         <Routes>
           <Route path="/register" element={<Register />} />
           <Route path="/login" element={<Login />} />
-          <Route path="/products/" element={<Products />} />
-        <Route path ="/" element= {<FeaturedProducts/>} />
+          <Route path="/" element={<FeaturedProducts />} />
 
           <Route path="/products/:productId" element={<ProductDetail />} />
           <Route path="/cart" element={<CartCheckout />} />

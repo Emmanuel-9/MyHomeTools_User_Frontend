@@ -132,7 +132,6 @@ const Form = styled.div`
   position: absolute;
   right: 100px;
   width: 70%;
-  /* border: 1px solid #9ec5ab; */
   height: 50%;
   display: flex;
   flex-direction: column;

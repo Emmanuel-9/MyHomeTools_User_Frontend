@@ -41,34 +41,33 @@ function Register() {
     setConfirmPassword(e.target.value)
   }
 
-  
-	const register = (e) => {
-		e.preventDefault()
-		axios
-			.post(
-				`http://localhost:5004/auth/signup`, //insert the API route here
-				{
-					first_name: firstName,
-					last_name: lastName,
+  const register = (e) => {
+    e.preventDefault()
+    axios
+      .post(
+        `http://localhost:5004/auth/signup`,
+        {
+          first_name: firstName,
+          last_name: lastName,
           email,
           phone_number: phoneNumber,
-					password: password,
-				},
-				{ credentials: "include" }
-			)
-			.then((response) => {
-				response.status === 201 && alert("Registered Successfully")
-				navigate("/")
-				console.log(response.data.token)
-				localStorage.setItem("token", response.data.token)
-				console.log("cookie from the register method", document.cookie.token)
-			})
-			.catch((err) => {
-				console.log(err)
-				console.log(err.response.data)
-				alert(err.response.data)
-			})
-	}
+          password: password,
+        },
+        { credentials: "include" }
+      )
+      .then((response) => {
+        response.status === 201 && alert("Registered Successfully")
+        navigate("/")
+        console.log(response.data.token)
+        localStorage.setItem("token", response.data.token)
+        console.log("cookie from the register method", document.cookie.token)
+      })
+      .catch((err) => {
+        console.log(err)
+        console.log(err.response.data)
+        alert(err.response.data)
+      })
+  }
 
   return (
     <Container>
@@ -177,8 +176,6 @@ const Wrapper = styled.div`
 
   img {
     width: 40%;
-
-    /* border: 1px solid black; */
     position: absolute;
     left: 170px;
     padding: 0;
@@ -186,9 +183,8 @@ const Wrapper = styled.div`
   }
 
   @media (min-width: 700px) {
-    /* width: 50%; */
     img {
-      width: 60%; 
+      width: 60%;
       left: 0px;
     }
   }

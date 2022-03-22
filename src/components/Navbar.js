@@ -1,8 +1,8 @@
-import Logo from "./Images/logo.png"
-import Cart from "./Images/icon-cart.svg"
-import Avatar from "./Images/image-avatar.png"
-import Burger from "./Images/icon-menu.svg"
-import Close from "./Images/icon-close.svg"
+import Logo from "../Images/logo.png"
+import Cart from "../Images/icon-cart.svg"
+import Avatar from "../Images/image-avatar.png"
+import Burger from "../Images/icon-menu.svg"
+import Close from "../Images/icon-close.svg"
 
 import styled from "styled-components"
 import { useState } from "react"

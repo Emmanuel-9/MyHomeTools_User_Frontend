@@ -1,37 +1,37 @@
-import styled from "styled-components";
-import productImage from "./Images/product-1-thumbnail.png";
-import deleteIcon from "./Images/icon-delete.svg";
+import styled from "styled-components"
+import productImage from "../Images/product-1-thumbnail.png"
+import deleteIcon from "../Images/icon-delete.svg"
 
 const Cart = () => {
-    return (
-      <Body>
-        <Header>
-          <h3>Cart</h3>
-        </Header>
-        <Content>
-          <div className="thumbnail">
-            <img src={productImage} alt="Coffee Maker" />
-          </div>
-          <div className="details">
-            <p>
-              The best coffee maker...
-              <br />
-              ksh 25x2 <strong>ksh50.00</strong>
-            </p>
-          </div>
-          <div className="delete">
-            <img src={deleteIcon} alt="delete" />
-          </div>
-        </Content>
-  
-        <button>Checkout</button>
-      </Body>
-    );
-  };
+  return (
+    <Body>
+      <Header>
+        <h3>Cart</h3>
+      </Header>
+      <Content>
+        <div className="thumbnail">
+          <img src={productImage} alt="Coffee Maker" />
+        </div>
+        <div className="details">
+          <p>
+            The best coffee maker...
+            <br />
+            ksh 25x2 <strong>ksh50.00</strong>
+          </p>
+        </div>
+        <div className="delete">
+          <img src={deleteIcon} alt="delete" />
+        </div>
+      </Content>
 
-  export default Cart;
+      <button>Checkout</button>
+    </Body>
+  )
+}
 
-  const Body = styled.div`
+export default Cart
+
+const Body = styled.div`
   width: 350px;
   border-radius: 10px;
   box-shadow: 0px 0px 20px rgba(0, 0, 0, 20%);
@@ -74,12 +74,12 @@ const Cart = () => {
     transform: translateX(0%);
     max-width: 350px;
   }
-`;
+`
 
 const Header = styled.div`
   border-bottom: solid 1px hsl(223, 64%, 95%);
   padding: 20px;
-`;
+`
 
 const Content = styled.div`
   padding: 20px;
@@ -101,4 +101,4 @@ const Content = styled.div`
   .details {
     margin-right: 20px;
   }
-`;
+`
