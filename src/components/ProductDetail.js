@@ -68,7 +68,7 @@ function ProductDetail() {
           </Description>
 
           <Quantity>
-            <p className="quantity"> Quantity : </p>
+            <p className="quantity"> Quantity: </p>
           </Quantity>
           <Buttons>
             <div
