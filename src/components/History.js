@@ -1,34 +1,49 @@
 import styled from "styled-components"
-import historyIcon from "../Images/history.png"
 import productImage from "../Images/product-1-thumbnail.png"
 
 function History() {
-    return (
-  <Body>
-    <Header>
-      <h3> Your Order History</h3>
-    </Header>
-    <Content>
-      <div className="thumbnail">
-        <img src={productImage} alt="coffee maker" />
-      </div>
-      <div className="details">
-        <p>
-          Order No: 1
-          <br />
-          2 items
-          <br />
-          <strong>Total Cost:ksh50.00</strong>
-          Ordered on: 2022-04-1
-        </p>
-      </div>
-    </Content>
+  return (
+    <Body>
+      <Header>
+        <h3> Your Order History</h3>
+      </Header>
+      <Content>
+        <div className="thumbnail">
+          <img src={productImage} alt="coffee maker" />
+          <div className="details">
+            <p>
+              Order No: 1
+              <br />
+              2 items
+              <br />
+              <strong>Total Cost:ksh50.00</strong>
+              <br />
+              Ordered on: 2022-04-1
+            </p>
+          </div>
+        </div>
 
-    <Hr />
+        
+        <div className="thumbnail">
+          <img src={productImage} alt="coffee maker" />
+          <div className="details">
+            <p>
+              Order No: 1
+              <br />
+              2 items
+              <br />
+              <strong>Total Cost:ksh50.00</strong>
+              <br />
+              Ordered on: 2022-04-1
+            </p>
+          </div>
+        </div>
+        
+      </Content>
 
-    <button>View More</button>
-  </Body>
-    )
+      <button>View More</button>
+    </Body>
+  )
 }
 
 export default History
@@ -79,29 +94,41 @@ const Body = styled.div`
 `
 
 const Header = styled.div`
-border-bottom: solid 1px hsl(223, 64%, 95%);
-  padding: 20px;`
+  border-bottom: solid 1px hsl(223, 64%, 95%);
+  padding: 20px;
+`
 
 const Content = styled.div`
-padding: 20px;
+  padding: 20px;
   line-height: 1.6;
   display: flex;
   align-items: center;
+  justify-content: space-between;
+  /* display: flex; */
+  flex-wrap: wrap;
 
   .thumbnail {
     display: flex;
     align-items: center;
-    margin-right: 20px;
+    /* margin-right: 20px; */
+    justify-content: space-between;
+    border-bottom: 1px solid black;
+    padding: 10px 0;
+    width: 100%;
+    /* border: 1px solid black; */
+
     img {
-      width: 50px;
-      height: 50px;
-      border-radius: 5px;
+        margin: auto;
+      width: 25%;
+      /* height: 50px; */
+      /* border-radius: 5px; */
       cursor: auto;
     }
+    .details {
+      /* margin-right: 20px; */
+    }
   }
-  .details {
-    margin-right: 20px;
-  }`
+`
 
 const Hr = styled.hr`
   background-color: #6c6a6a;
