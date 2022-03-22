@@ -1,35 +1,34 @@
-import React from "react";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
-import FeaturedProducts from "./Home";
-import Products from "./Products";
-import ProductDetail from "./ProductDetail";
-import Navbar from "./Navbar";
-import GlobalStyle from "./GlobalStyle";
+import "./App.css"
+import { BrowserRouter, Routes, Route } from "react-router-dom"
+import FeaturedProducts from "./components/Home"
+import Register from "./components/Register"
+import Login from "./components/Login"
+import CartCheckout from "./components/CartCheckout"
+import ProductDetail from "./components/ProductDetail"
+import Home from "./components/Home"
+import Navbar from "./components/Navbar"
+
+import GlobalStyle from "./components/GlobalStyle"
 
 function App() {
   return (
-    // <div>
-    //   <nav>
-    //     <Link to="/">Home</Link>
-    //     <Link to="/products">Products</Link>
-    //   </nav>
-    //  </div>
     <div className="App">
       <GlobalStyle />
       <BrowserRouter>
-      <Navbar />
-    
+        <Navbar />
+        <Routes>
+          <Route path="/register" element={<Register />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/" element={<FeaturedProducts />} />
 
-      <Routes>
-        <Route path ="/" element= {<FeaturedProducts/>} />
-        <Route path ="/products" element= {<Products/>} />
-        <Route path ="/products/:productId" element= {<ProductDetail/>} />
-        
-      </Routes>
+          <Route path="/products/:productId" element={<ProductDetail />} />
+          <Route path="/cart" element={<CartCheckout />} />
+
+          <Route path="/" element={<Home />} />
+        </Routes>
       </BrowserRouter>
-      </div>
-      
-  );
+    </div>
+  )
 }
 
-export default App;
+export default App
