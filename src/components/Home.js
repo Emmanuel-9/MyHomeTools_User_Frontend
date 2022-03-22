@@ -184,20 +184,23 @@ const Container = styled.div`
   .item-container {
     position: relative;
     top: 50px;
-    border: 3px solid green;
+    /* border: 3px solid green; */
     display: flex;
     flex-wrap: wrap;
+    margin-left: 70px;
+    
   }
   .card {
-    border: 3px solid black;
+    border: 1px solid lightgrey;
     text-align: center;
-    border-radius: 5px;
+    border-radius: 2px;
     padding: 1em;
+    background-color:rgba(46, 107, 174, 0.01);
     margin: 20px;
     box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
 
     .product-image {
-      height: 100px;
+      height: 200px;
       width: 200px;
     }
 
