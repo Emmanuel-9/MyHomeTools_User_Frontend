@@ -1,10 +1,9 @@
 import styled from "styled-components";
-import Car from "./Images/car-side.png";
-import Money from "./Images/dollar.png";
-import Time from "./Images/time-twenty-four.png";
-import Shield from "./Images/shield-check(1).png";
-import styled from "styled-components"
-import Car from "../Images/car-side.png"
+import Car from "../Images/car-side.png";
+import Money from "../Images/dollar.png";
+import Time from "../Images/time-twenty-four.png";
+import Shield from "../Images/shield-check(1).png";
+
 
 function Info() {
   return (
