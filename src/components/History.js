@@ -23,7 +23,6 @@ function History() {
           </div>
         </div>
 
-        
         <div className="thumbnail">
           <img src={productImage} alt="coffee maker" />
           <div className="details">
@@ -38,7 +37,6 @@ function History() {
             </p>
           </div>
         </div>
-        
       </Content>
 
       <button>View More</button>
@@ -104,28 +102,22 @@ const Content = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
-  /* display: flex; */
   flex-wrap: wrap;
 
   .thumbnail {
     display: flex;
     align-items: center;
-    /* margin-right: 20px; */
     justify-content: space-between;
     border-bottom: 1px solid black;
     padding: 10px 0;
     width: 100%;
-    /* border: 1px solid black; */
 
     img {
-        margin: auto;
+      margin: auto;
       width: 25%;
-      /* height: 50px; */
-      /* border-radius: 5px; */
       cursor: auto;
     }
     .details {
-      /* margin-right: 20px; */
     }
   }
 `
