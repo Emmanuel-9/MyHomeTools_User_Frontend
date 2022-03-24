@@ -4,8 +4,8 @@ import CheckoutDetails from "./CheckoutDetails"
 import axios from "axios"
 
 function CartCheckout() {
-  const product = []
-  const product_id = ["6232dccf79c2d6fd0dae59a5", "6232dad579c2d6fd0dae59a3"]
+  // const product = []
+  const product_id = ["6232dccf79c2d6fd0dae59a5", "6232dad579c2d6fd0dae59a3"] //do a /GET cart to get the products array
   const [count, setCount] = useState(0)
   const [gotten_products, setGottenProducts] = useState([])
 
