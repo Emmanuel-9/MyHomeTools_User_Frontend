@@ -10,7 +10,7 @@ import { useState } from "react"
 import { Link } from "react-router-dom"
 
 import CartComp from "./Cart"
-import HistoryComponent from "./History"
+import History from "./History"
 
 const Navbar = () => {
   const [show, setShow] = useState(false)
@@ -75,7 +75,7 @@ const Navbar = () => {
               setshowHistory((prev) => !prev)
             }}
           />
-          {showHistory && <HistoryComponent />}
+          {showHistory && <History />}
         </div>
         <div className="avatar">
           <img src={Avatar} alt={Avatar} />
