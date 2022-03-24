@@ -23,6 +23,7 @@ const FeaturedProducts = () => {
       .catch((err) => {
         console.log(err)
       })
+    //get cart object [array products] array .0
   }
 
   return (

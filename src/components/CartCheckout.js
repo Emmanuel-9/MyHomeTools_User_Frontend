@@ -1,9 +1,25 @@
 import styled from "styled-components"
-import React, { useState } from "react"
+import React, { useState, useEffect } from "react"
 import CheckoutDetails from "./CheckoutDetails"
+import axios from "axios"
 
 function CartCheckout() {
+  const product = []
+  const product_id = ["6232dccf79c2d6fd0dae59a5", "6232dad579c2d6fd0dae59a3"]
   const [count, setCount] = useState(0)
+  const gotten_products = []
+
+  useEffect(() => {
+    for (let i = 0; i < product_id.length; i++) {
+      axios
+        .get(`http://localhost:5004/product/${product_id[i]}`)
+        .then((res) => {
+          console.log(res.data)
+          gotten_products.push(res.data)
+        })
+    }
+    console.log("this is my gotten products", gotten_products)
+  }, [])
 
   const add = () => {
     setCount(count + 1)
@@ -21,27 +37,32 @@ function CartCheckout() {
         <TopButton type="filled">Continue Shopping </TopButton>
 
         <Bottom>
-          <Product>
-            <ProductDetail>
-              <img src="/images/smart-tv.png" alt="tv" />
+          {gotten_products ? 
+          gotten_products.map((product, key) => (
+            // <>
+              <Product key={key}>
+                <ProductDetail>
+                  <img src={product.image} alt="tv" />
 
-              <ProductName>LED Backlit Smart TV</ProductName>
-            </ProductDetail>
-          </Product>
-          <Count>
-            <p id="subtract" onClick={subtract}>
-              -
-            </p>
-            <p>{count}</p>
-            <p id="add" onClick={add}>
-              +
-            </p>
-          </Count>
-          <ProductPrice>Ksh 130,000</ProductPrice>
+                  <ProductName>{product.product_name}</ProductName>
+                </ProductDetail>
+                <Count>
+                  <p id="subtract" onClick={subtract}>
+                    -
+                  </p>
+                  <p>{count}</p>
+                  <p id="add" onClick={add}>
+                    +
+                  </p>
+                </Count>
+                <ProductPrice>{product.price}</ProductPrice>
+              </Product>
+            
+          )) : <p>"Oops, no products"</p>}
         </Bottom>
 
         <Hr />
-
+        {/* 
         <Bottom>
           <Product>
             <ProductDetail>
@@ -51,7 +72,12 @@ function CartCheckout() {
             </ProductDetail>
           </Product>
           <Count>
-            <p id="subtract" onClick={subtract}>
+            <p
+              id="subtract"
+              onClick={() => {
+                subtract()
+              }}
+            >
               -
             </p>
             <p>{count}</p>
@@ -84,7 +110,8 @@ function CartCheckout() {
           <ProductPrice>Ksh 60,000</ProductPrice>
         </Bottom>
 
-        <Hr />
+        <Hr /> */}
+
         <Total>
           <p className="total">Sub-Total: Ksh - 350,000</p>
         </Total>
@@ -157,6 +184,8 @@ const TopButton = styled.button`
 
 const Bottom = styled.div`
   display: flex;
+  border: 1px solid red;
+  height: 100vh;
   justify-content: space-around;
   align-items: center;
 `

@@ -3,6 +3,8 @@ import productImage from "../Images/product-1-thumbnail.png"
 import deleteIcon from "../Images/icon-delete.svg"
 
 const Cart = () => {
+
+  
   return (
     <Body>
       <Header>
