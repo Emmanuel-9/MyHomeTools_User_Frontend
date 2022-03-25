@@ -4,49 +4,39 @@ import CheckoutDetails from "./CheckoutDetails"
 import axios from "axios"
 
 function CartCheckout() {
-  // const product = []
-  const [product_id, setProductId] = useState([])
+  const [product_ids, setProductIds] = useState([])
   // const product_id = ["6232dccf79c2d6fd0dae59a5", "6232dad579c2d6fd0dae59a3"] //do a /GET cart to get the products array
   const [count, setCount] = useState(0)
   const [gotten_products, setGottenProducts] = useState([])
   const [cart, setCart] = useState([])
-  // const [posts, setPosts] = useState([])
+  const array = []
   const user = JSON.parse(localStorage.getItem("user"))
-  // console.log(user)
-  // console.log(user)
+
   const user_id = user._id
-  // console.log(user_id)
 
   useEffect(() => {
     axios
-      .get(`http://localhost:5004/cart/${user_id}`)
+      .get(`http://localhost:5004/cart/6228b135bf10cd78603f946d`)
       .then((response) => {
-        console.log(JSON.stringify(response.data.products))
-        console.log(response.data.products)
-        setCart(response.data.products)
-        setProductId((product_id) => [...product_id, response.data.products])
+        console.log("product ids: ", JSON.stringify(response.data))
+        console.log("product ids: ", response.data)
+        setProductIds(response.data)
+        // setProductId((product_id) => [...product_id, response.data])
       })
       .then(() => {
-        console.log(cart)
-        // for (let j = 0; j < cart.length; j++) {
-        // }
-        console.log(product_id)
-      })
-      .then(() => {
-        for (let i = 0; i < product_id.length; i++) {
+        for (let i = 0; i < product_ids.length; i++) {
           axios
-            .get(`http://localhost:5004/product/${product_id[0][i].product_id}`)
-            .then((res) => {
-              console.log(res.data)
-              // gotten_products.push(res.data)
-              setGottenProducts((gotten_products) => [
-                ...gotten_products,
-                res.data,
-              ])
+            .get(`http://localhost:5004/product/${product_ids[i]}`)
+            .then((response) => {
+              array.push(response.data)
+              console.log("from the product table: ", response.data)
+              // setCart([...cart, response.data])
             })
         }
-        console.log("this is my gotten products", gotten_products)
-        console.log("this is my gotten products", typeof gotten_products)
+      })
+      .then(() => {
+        console.log("cart: ", cart)
+        console.log("array: ", array)
       })
   }, [])
 
@@ -59,8 +49,6 @@ function CartCheckout() {
     }
   }
 
-  // console.log(gotten_products)
-
   return (
     <Container>
       <Wrapper>
@@ -68,8 +56,8 @@ function CartCheckout() {
         <TopButton type="filled">Continue Shopping </TopButton>
 
         <Bottom>
-          {gotten_products ? (
-            gotten_products.map((product, key) => (
+          {array ? (
+            array.map((product, key) => (
               <Box key={key}>
                 <Product>
                   <ProductDetail>
