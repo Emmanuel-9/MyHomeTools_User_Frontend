@@ -3,7 +3,6 @@ import { useParams } from "react-router-dom"
 import { useState, useEffect } from "react"
 import styled from "styled-components"
 import axios from "axios"
-
 import minus from "../Images/icon-minus.svg"
 import plus from "../Images/icon-plus.svg"
 import cart from "../Images/icon-cart.svg"
@@ -12,6 +11,9 @@ function ProductDetail() {
   const [quantity, setQuantity] = useState(0)
   const [products, setProducts] = useState([])
   const { productId } = useParams()
+
+  const user = localStorage.getItem("user")
+  console.log(user)
 
   useEffect(() => {
     fetchProduct()
@@ -38,6 +40,13 @@ function ProductDetail() {
       })
   }
 
+  const addToCart = () => {
+    console.log("clicked add to cart")
+
+    try {
+    } catch (err) {}
+  }
+
   return (
     <Body>
       <Card>
@@ -53,7 +62,10 @@ function ProductDetail() {
 
             <Price>
               <p className="original-price"> ksh {products.price}</p>
-              <p className="discounted-price"> ksh {products.price - products.discount}</p>
+              <p className="discounted-price">
+                {" "}
+                ksh {products.price - products.discount}
+              </p>
             </Price>
 
             <Availability>
@@ -93,9 +105,15 @@ function ProductDetail() {
           </Buttons>
 
           <Checkout>
-            <div className="add-to-cart">
+            <div
+              className="add-to-cart"
+              onClick={() => {
+                addToCart()
+              }}
+            >
               <button>
-                <img src={cart} alt={cart} /> Add to Cart
+                <img src={cart} alt={cart} />
+                <p>Add to Cart</p>
               </button>
             </div>
           </Checkout>
@@ -292,19 +310,26 @@ const Buttons = styled.div`
 const Checkout = styled.div`
   width: 70%;
   margin-left: 100px;
-
+  /* display: inline-flex; */
   display: flex;
   justify-content: center;
   margin: 0 auto;
 
   button {
     padding: 15px;
-    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    width: 120%;
     margin-bottom: 20px;
     border: 1px solid lightgrey;
     border-radius: 20px;
     margin-right: 0;
     background-color: #a6c2c1;
+
+    :hover {
+      cursor: pointer;
+      background-color: grey;
+    }
   }
 
   @media only screen and (min-width: 786px) {

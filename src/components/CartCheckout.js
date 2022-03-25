@@ -8,21 +8,35 @@ function CartCheckout() {
   const product_id = ["6232dccf79c2d6fd0dae59a5", "6232dad579c2d6fd0dae59a3"] //do a /GET cart to get the products array
   const [count, setCount] = useState(0)
   const [gotten_products, setGottenProducts] = useState([])
-
+  const [cart, setCart] = useState([])
   // const [posts, setPosts] = useState([])
+  const user = JSON.parse(localStorage.getItem("user"))
+  console.log(user)
+  const user_id = user.user_id
 
   useEffect(() => {
-    for (let i = 0; i < product_id.length; i++) {
-      axios
-        .get(`http://localhost:5004/product/${product_id[i]}`)
-        .then((res) => {
-          console.log(res.data)
-          // gotten_products.push(res.data)
-          setGottenProducts((gotten_products) => [...gotten_products, res.data])
-        })
-    }
-    console.log("this is my gotten products", gotten_products)
-    console.log("this is my gotten products", typeof gotten_products)
+    axios
+      .get(`http://localhost:5004/cart/${user}`)
+      .then((response) => {
+        console.log(response.data)
+        setCart(response.data)
+      })
+      .then(() => {
+        for (let i = 0; i < product_id.length; i++) {
+          axios
+            .get(`http://localhost:5004/product/${product_id[i]}`)
+            .then((res) => {
+              console.log(res.data)
+              // gotten_products.push(res.data)
+              setGottenProducts((gotten_products) => [
+                ...gotten_products,
+                res.data,
+              ])
+            })
+        }
+        console.log("this is my gotten products", gotten_products)
+        console.log("this is my gotten products", typeof gotten_products)
+      })
   }, [])
 
   const add = () => {
