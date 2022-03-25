@@ -5,26 +5,37 @@ import axios from "axios"
 
 function CartCheckout() {
   // const product = []
-  const product_id = ["6232dccf79c2d6fd0dae59a5", "6232dad579c2d6fd0dae59a3"] //do a /GET cart to get the products array
+  const [product_id, setProductId] = useState([])
+  // const product_id = ["6232dccf79c2d6fd0dae59a5", "6232dad579c2d6fd0dae59a3"] //do a /GET cart to get the products array
   const [count, setCount] = useState(0)
   const [gotten_products, setGottenProducts] = useState([])
   const [cart, setCart] = useState([])
   // const [posts, setPosts] = useState([])
   const user = JSON.parse(localStorage.getItem("user"))
-  console.log(user)
-  const user_id = user.user_id
+  // console.log(user)
+  // console.log(user)
+  const user_id = user._id
+  // console.log(user_id)
 
   useEffect(() => {
     axios
-      .get(`http://localhost:5004/cart/${user}`)
+      .get(`http://localhost:5004/cart/${user_id}`)
       .then((response) => {
-        console.log(response.data)
-        setCart(response.data)
+        console.log(JSON.stringify(response.data.products))
+        console.log(response.data.products)
+        setCart(response.data.products)
+        setProductId((product_id) => [...product_id, response.data.products])
+      })
+      .then(() => {
+        console.log(cart)
+        // for (let j = 0; j < cart.length; j++) {
+        // }
+        console.log(product_id)
       })
       .then(() => {
         for (let i = 0; i < product_id.length; i++) {
           axios
-            .get(`http://localhost:5004/product/${product_id[i]}`)
+            .get(`http://localhost:5004/product/${product_id[0][i].product_id}`)
             .then((res) => {
               console.log(res.data)
               // gotten_products.push(res.data)
