@@ -1,9 +1,30 @@
 import styled from "styled-components"
-import React, { useState } from "react"
+import React, { useState, useEffect } from "react"
 import CheckoutDetails from "./CheckoutDetails"
+import axios from "axios"
 
 function CartCheckout() {
+  const [product_ids, setProductIds] = useState([])
+  // const product_id = ["6232dccf79c2d6fd0dae59a5", "6232dad579c2d6fd0dae59a3"] //do a /GET cart to get the products array
   const [count, setCount] = useState(0)
+  const [gotten_products, setGottenProducts] = useState([])
+  const [cart, setCart] = useState([])
+  var array = []
+  const user = JSON.parse(localStorage.getItem("user"))
+
+  const user_id = user._id
+
+  useEffect(() => {
+    console.log("user id is: ", user._id)
+    axios
+      .get(`http://localhost:5004/cart/6228b135bf10cd78603f946d`)
+      .then((response) => {
+        console.log("product ids: ", JSON.stringify(response.data))
+        console.log("product ids: ", response.data)
+        setCart(response.data)
+        // setProductId((product_id) => [...product_id, response.data])
+      })
+  }, [])
 
   const add = () => {
     setCount(count + 1)
@@ -21,72 +42,42 @@ function CartCheckout() {
         <TopButton type="filled">Continue Shopping </TopButton>
 
         <Bottom>
-          <Product>
-            <ProductDetail>
-              <img src="/images/smart-tv.png" alt="tv" />
-
-              <ProductName>LED Backlit Smart TV</ProductName>
-            </ProductDetail>
-          </Product>
-          <Count>
-            <p id="subtract" onClick={subtract}>
-              -
-            </p>
-            <p>{count}</p>
-            <p id="add" onClick={add}>
-              +
-            </p>
-          </Count>
-          <ProductPrice>Ksh 130,000</ProductPrice>
-        </Bottom>
-
-        <Hr />
-
-        <Bottom>
-          <Product>
-            <ProductDetail>
-              <img src="/images/dishwasher.png" alt="dishwasher" />
-
-              <ProductName>Automatic Dishwasher</ProductName>
-            </ProductDetail>
-          </Product>
-          <Count>
-            <p id="subtract" onClick={subtract}>
-              -
-            </p>
-            <p>{count}</p>
-            <p id="add" onClick={add}>
-              +
-            </p>
-          </Count>
-          <ProductPrice>Ksh 160,000</ProductPrice>
-        </Bottom>
-
-        <Hr />
-
-        <Bottom>
-          <Product>
-            <ProductDetail>
-              <img src="/images/deep-frier.png" alt="deep-frier" />
-
-              <ProductName>Deep Frier</ProductName>
-            </ProductDetail>
-          </Product>
-          <Count>
-            <p id="subtract" onClick={subtract}>
-              -
-            </p>
-            <p>{count}</p>
-            <p id="add" onClick={add}>
-              +
-            </p>
-          </Count>
-          <ProductPrice>Ksh 60,000</ProductPrice>
+          {cart ? (
+            cart.map((product, key) => (
+              <Box key={key}>
+                <Product>
+                  <ProductDetail>
+                    <img src={product.product_object.image} alt="tv" />
+                    <ProductName>
+                      {product.product_object.product_name}
+                    </ProductName>
+                  </ProductDetail>
+                </Product>
+                <Count>
+                  <p
+                    id="subtract"
+                    // onClick={subtract}
+                  >
+                    -
+                  </p>
+                  <p>{product.occurence}</p>
+                  <p id="add" onClick={add}>
+                    +
+                  </p>
+                </Count>
+                <ProductPrice>
+                  <p>{product.product_object.price * product.occurence}</p>
+                </ProductPrice>
+              </Box>
+            ))
+          ) : (
+            <p>"Oops, no products"</p>
+          )}
         </Bottom>
 
         <Hr />
         <Total>
-          <p className="total">Sub-Total: Ksh - 350,000</p>
+          <p className="total">Total: {}</p>Ksh 350,000
         </Total>
       </Wrapper>
 
@@ -154,15 +145,19 @@ const TopButton = styled.button`
     color: white;
   }
 `
-
 const Bottom = styled.div`
-  display: flex;
+  /* height: 100vh; */
   justify-content: space-around;
   align-items: center;
 `
+const Box = styled.div`
+  border: 1px solid lightgrey;
+  margin: 10px 0;
+  padding: 10px;
+`
 const Product = styled.div`
   display: flex;
-  width: 50%;
+  /* width: 50%; */
   margin: 10px 0;
   justify-content: space-between;
 `
@@ -186,22 +181,23 @@ const ProductName = styled.span`
   width: 100%;
   margin: 15px;
 `
-
 const ProductPrice = styled.div`
-  right: 0;
-  align-items: right;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 10px auto;
 `
-
 const Count = styled.div`
   display: flex;
   justify-content: space-around;
   align-items: center;
   padding: 10px;
   border: 1px solid grey;
+  margin: 0 auto;
   background-color: lightgrey;
   border-radius: 10px;
   height: 100%;
-  width: 20%;
+  width: 50%;
 
   #add {
     padding: 5px;

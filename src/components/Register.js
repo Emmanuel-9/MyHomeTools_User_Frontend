@@ -60,6 +60,7 @@ function Register() {
         navigate("/")
         console.log(response.data.token)
         localStorage.setItem("token", response.data.token)
+        localStorage.setItem("user", response.data)
         console.log("cookie from the register method", document.cookie.token)
       })
       .catch((err) => {
@@ -151,6 +152,7 @@ export default Register
 const Container = styled.div`
   background: #b4c0c6;
   height: 100vh;
+  overflow: hidden;
   display: flex;
   flex-direction: row;
 `
@@ -166,6 +168,11 @@ const Logo = styled.div`
     width: 100%;
     padding: 0;
   }
+
+  @media only screen and (max-width: 700px) {
+    width: 50%;
+    margin: 30px 10px;
+  }
 `
 
 const Wrapper = styled.div`
@@ -173,18 +180,23 @@ const Wrapper = styled.div`
   height: 100vh;
   display: flex;
   align-items: center;
+  overflow: hidden;
 
   img {
-    width: 40%;
-    position: absolute;
-    left: 170px;
+    width: 50%;
+    overflow: hidden;
+    position: relative;
+    left: 8%;
     padding: 0;
     z-index: 100;
   }
 
-  @media (min-width: 700px) {
+  @media only screen and (max-width: 700px) {
+    width: 50%;
     img {
-      width: 60%;
+      width: 100%;
+      /* height: 50%; */
+      /* top: 30%; */
       left: 0px;
     }
   }
@@ -192,7 +204,7 @@ const Wrapper = styled.div`
 
 const Right = styled.div`
   background-color: #ffff;
-  height: 100%;
+  height: 100vh;
   width: 66%;
   position: absolute;
   right: 0;
@@ -226,11 +238,11 @@ const Form = styled.div`
     justify-content: center;
 
     input {
-      padding: 10px;
+      padding: 20px;
       margin: 30px 0;
       border: none;
       border-bottom: 1px solid lightgrey;
-      font-size: 18px;
+      font-size: 20px;
       outline: none;
     }
     button {
@@ -267,6 +279,19 @@ const Form = styled.div`
     :hover {
       color: grey;
       cursor: pointer;
+    }
+  }
+
+  @media only screen and (max-width: 768px) {
+    padding: 0;
+    margin: 0;
+    width: 87%;
+
+    form {
+      input {
+        font-size: 14px;
+        padding: 5px;
+      }
     }
   }
 `

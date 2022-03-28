@@ -1,9 +1,8 @@
 import React from "react"
-import { useParams } from "react-router-dom"
+import { useParams, useNavigate } from "react-router-dom"
 import { useState, useEffect } from "react"
 import styled from "styled-components"
 import axios from "axios"
-
 import minus from "../Images/icon-minus.svg"
 import plus from "../Images/icon-plus.svg"
 import cart from "../Images/icon-cart.svg"
@@ -12,11 +11,16 @@ function ProductDetail() {
   const [quantity, setQuantity] = useState(0)
   const [products, setProducts] = useState([])
   const { productId } = useParams()
+  const navigate = useNavigate()
+
+  const user = JSON.parse(localStorage.getItem("user"))
+  console.log(user)
 
   useEffect(() => {
     fetchProduct()
   }, [])
 
+  // console.log(userId)
   const quantityHandler = (increment) => {
     if (increment) {
       setQuantity((prev) => (prev === 10 ? prev : prev + 1))
@@ -31,12 +35,41 @@ function ProductDetail() {
       
       )
       .then((res) => {
-        console.log(res)
-        console.log(res.data)
+        console.log("res first: ", res.data)
         setProducts(res.data)
       })
       .catch((err) => {
         console.log(err)
+      })
+  }
+
+  const handleAddToCart = () => {
+    const user_id = user._id
+    console.log(user_id)
+    axios
+      .put(`http://localhost:5004/cart/${user_id}`, [productId])
+      .then((res) => {
+        console.log("putting : ", res.data)
+
+        if (res.data === "") {
+          console.log("posting: ")
+          axios
+            .post(`http://localhost:5004/cart`, {
+              user_id: user_id,
+              products: [productId],
+            })
+            .then((response) => {
+              console.log("response after the post: ", response)
+              // navigate("")
+              alert("successfully added to cart")
+            })
+        } else {
+          alert("item added to cart successfully")
+        }
+      })
+      .catch((err) => {
+        console.log("error: ", err.message)
+        console.log("not null: ", user_id)
       })
   }
 
@@ -55,16 +88,20 @@ function ProductDetail() {
 
             <Price>
               <p className="original-price"> ksh {products.price}</p>
-              <p className="discounted-price"> ksh {products.price - products.discount}</p>
+              <p className="discounted-price">
+                {" "}
+                ksh {products.price - products.discount}
+              </p>
             </Price>
 
             <Availability>
               <p>Availability: </p>
-              <p> 
-                {products.quantity < 1 ?(
-                  <p className= "unavailable">Unavailable</p>
-                ): (
-                  <p className = "available">In Stock</p>
+              <p>
+                {/* {" "} */}
+                {products.quantity < 1 ? (
+                  <p id="unavailable">Unavailable</p>
+                ) : (
+                  <p id="available">In stock</p>
                 )}
               </p>
             </Availability>
@@ -102,7 +139,7 @@ function ProductDetail() {
 
           <Checkout>
             <div className="add-to-cart">
-              <button>
+              <button onClick={handleAddToCart}>
                 <img src={cart} alt={cart} /> Add to Cart
               </button>
             </div>
@@ -216,11 +253,11 @@ const Availability = styled.div`
   justify-content: space-between;
   margin: 1% 0;
 
-  .available {
+  #available {
     color: green;
   }
 
-  .unavailable{
+  #unavailable {
     color: red;
   }
 
@@ -309,19 +346,26 @@ const Buttons = styled.div`
 const Checkout = styled.div`
   width: 70%;
   margin-left: 100px;
-
+  /* display: inline-flex; */
   display: flex;
   justify-content: center;
   margin: 0 auto;
 
   button {
     padding: 15px;
-    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    width: 120%;
     margin-bottom: 20px;
     border: 1px solid lightgrey;
     border-radius: 20px;
     margin-right: 0;
     background-color: #a6c2c1;
+
+    :hover {
+      cursor: pointer;
+      background-color: grey;
+    }
   }
 
   @media only screen and (min-width: 786px) {
