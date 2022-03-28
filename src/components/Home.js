@@ -19,10 +19,10 @@ const FeaturedProducts = () => {
       navigate("/")
     }
     axios
-      .get("http://localhost:5004/product/")
+      .get("http://localhost:5004/product")
       .then((res) => {
-        console.log(res)
-        setProducts(res)
+        console.log(res.data)
+        setProducts(res.data)
       })
       .catch((err) => {
         console.log(err)

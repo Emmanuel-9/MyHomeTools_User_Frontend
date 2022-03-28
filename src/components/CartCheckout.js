@@ -23,7 +23,6 @@ function CartCheckout() {
         setCart(response.data)
         // setProductId((product_id) => [...product_id, response.data])
       })
-      
   }, [])
 
   const add = () => {
@@ -47,8 +46,10 @@ function CartCheckout() {
               <Box key={key}>
                 <Product>
                   <ProductDetail>
-                    <img src={product.image} alt="tv" />
-                    <ProductName>{product.product_name}</ProductName>
+                    <img src={product.product_object.image} alt="tv" />
+                    <ProductName>
+                      {product.product_object.product_name}
+                    </ProductName>
                   </ProductDetail>
                 </Product>
                 <Count>
@@ -58,16 +59,13 @@ function CartCheckout() {
                   >
                     -
                   </p>
-                  <p>{product.quantity}</p>
-                  <p
-                    id="add"
-                    onClick={add}
-                  >
+                  <p>{product.occurence}</p>
+                  <p id="add" onClick={add}>
                     +
                   </p>
                 </Count>
                 <ProductPrice>
-                  <p>{product.price}</p>
+                  <p>{product.product_object.price * product.occurence}</p>
                 </ProductPrice>
               </Box>
             ))
