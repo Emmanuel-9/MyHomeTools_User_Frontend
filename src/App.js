@@ -8,6 +8,7 @@ import ProductDetail from "./components/ProductDetail"
 import Home from "./components/Home"
 import Navbar from "./components/Navbar"
 
+
 import GlobalStyle from "./components/GlobalStyle"
 
 function App() {
