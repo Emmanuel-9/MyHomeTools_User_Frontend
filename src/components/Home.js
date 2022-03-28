@@ -3,17 +3,21 @@ import styled from "styled-components"
 import Airfryer from "../Images/airfryer.png"
 import Breakline from "../Images/breakline.png"
 import Stickers from "./Stickers"
-import { Link } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
 import axios from "axios"
 
 const FeaturedProducts = () => {
+  const navigate = useNavigate()
   const [products, setProducts] = useState([])
+  const user = localStorage.getItem("user")
+  console.log(user)
 
   useEffect(() => {
-    fetchProducts()
-  }, [])
-
-  const fetchProducts = () => {
+    if (user === "") {
+      navigate("/login")
+    } else {
+      navigate("/")
+    }
     axios
       .get("http://localhost:5004/product")
       .then((res) => {
@@ -23,8 +27,7 @@ const FeaturedProducts = () => {
       .catch((err) => {
         console.log(err)
       })
-    //get cart object [array products] array .0
-  }
+  }, [])
 
   return (
     <Body>
@@ -189,14 +192,13 @@ const Container = styled.div`
     display: flex;
     flex-wrap: wrap;
     margin-left: 70px;
-    
   }
   .card {
     border: 1px solid lightgrey;
     text-align: center;
     border-radius: 2px;
     padding: 1em;
-    background-color:rgba(46, 107, 174, 0.01);
+    background-color: rgba(46, 107, 174, 0.01);
     margin: 20px;
     box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
 

@@ -4,24 +4,40 @@ import CheckoutDetails from "./CheckoutDetails"
 import axios from "axios"
 
 function CartCheckout() {
-  const product = []
-  const product_id = ["6232dccf79c2d6fd0dae59a5", "6232dad579c2d6fd0dae59a3"]
+  const [product_ids, setProductIds] = useState([])
+  // const product_id = ["6232dccf79c2d6fd0dae59a5", "6232dad579c2d6fd0dae59a3"] //do a /GET cart to get the products array
   const [count, setCount] = useState(0)
-  const [gotten_products, setProducts] = useState([])
+  const [gotten_products, setGottenProducts] = useState([])
+  const [cart, setCart] = useState([])
+  const array = []
+  const user = JSON.parse(localStorage.getItem("user"))
 
-  
+  const user_id = user._id
 
   useEffect(() => {
-    for (let i = 0; i < product_id.length; i++) {
-      axios
-        .get(`http://localhost:5004/product/${product_id[i]}`)
-        .then((res) => {
-          console.log(res.data)
-          // gotten_products.push(res.data)
-          setProducts(res.data)
-        })
-    }
-    console.log("this is my gotten products", gotten_products)
+    axios
+      .get(`http://localhost:5004/cart/6228b135bf10cd78603f946d`)
+      .then((response) => {
+        console.log("product ids: ", JSON.stringify(response.data))
+        console.log("product ids: ", response.data)
+        setProductIds(response.data)
+        // setProductId((product_id) => [...product_id, response.data])
+      })
+      .then(() => {
+        for (let i = 0; i < product_ids.length; i++) {
+          axios
+            .get(`http://localhost:5004/product/${product_ids[i]}`)
+            .then((response) => {
+              array.push(response.data)
+              console.log("from the product table: ", response.data)
+              // setCart([...cart, response.data])
+            })
+        }
+      })
+      .then(() => {
+        console.log("cart: ", cart)
+        console.log("array: ", array)
+      })
   }, [])
 
 
@@ -42,80 +58,41 @@ function CartCheckout() {
         <TopButton type="filled">Continue Shopping </TopButton>
 
         <Bottom>
-          {gotten_products ? 
-          gotten_products.map((product, key) => (
-            // <>
-              <Product key={key}>
-                <ProductDetail>
-                  <img src={product.image} alt="tv" />
-
-                  <ProductName>{product.product_name}</ProductName>
-                </ProductDetail>
+          {array ? (
+            array.map((product, key) => (
+              <Box key={key}>
+                <Product>
+                  <ProductDetail>
+                    <img src={product.image} alt="tv" />
+                    <ProductName>{product.product_name}</ProductName>
+                  </ProductDetail>
+                </Product>
                 <Count>
-                  <p id="subtract" onClick={subtract}>
+                  <p
+                    id="subtract"
+                    // onClick={subtract}
+                  >
                     -
                   </p>
                   <p>{count}</p>
-                  <p id="add" onClick={add}>
+                  <p
+                    id="add"
+                    // onClick={add}
+                  >
                     +
                   </p>
                 </Count>
-                <ProductPrice>{product.price}</ProductPrice>
-              </Product>
-            
-          )) : <p>"Oops, no products"</p>} 
+                <ProductPrice>
+                  <p>{product.price}</p>
+                </ProductPrice>
+              </Box>
+            ))
+          ) : (
+            <p>"Oops, no products"</p>
+          )}
         </Bottom>
 
         <Hr />
-        {/* 
-        <Bottom>
-          <Product>
-            <ProductDetail>
-              <img src="/images/dishwasher.png" alt="dishwasher" />
-
-              <ProductName>Automatic Dishwasher</ProductName>
-            </ProductDetail>
-          </Product>
-          <Count>
-            <p
-              id="subtract"
-              onClick={() => {
-                subtract()
-              }}
-            >
-              -
-            </p>
-            <p>{count}</p>
-            <p id="add" onClick={add}>
-              +
-            </p>
-          </Count>
-          <ProductPrice>Ksh 160,000</ProductPrice>
-        </Bottom>
-
-        <Hr />
-
-        <Bottom>
-          <Product>
-            <ProductDetail>
-              <img src="/images/deep-frier.png" alt="deep-frier" />
-
-              <ProductName>Deep Frier</ProductName>
-            </ProductDetail>
-          </Product>
-          <Count>
-            <p id="subtract" onClick={subtract}>
-              -
-            </p>
-            <p>{count}</p>
-            <p id="add" onClick={add}>
-              +
-            </p>
-          </Count>
-          <ProductPrice>Ksh 60,000</ProductPrice>
-        </Bottom>
-
-        <Hr /> */}
 
         <Total>
           <p className="total">Sub-Total: Ksh - 350,000</p>
@@ -186,17 +163,19 @@ const TopButton = styled.button`
     color: white;
   }
 `
-
 const Bottom = styled.div`
-  display: flex;
-  border: 1px solid red;
-  height: 100vh;
+  /* height: 100vh; */
   justify-content: space-around;
   align-items: center;
 `
+const Box = styled.div`
+  border: 1px solid lightgrey;
+  margin: 10px 0;
+  padding: 10px;
+`
 const Product = styled.div`
   display: flex;
-  width: 50%;
+  /* width: 50%; */
   margin: 10px 0;
   justify-content: space-between;
 `
@@ -220,22 +199,23 @@ const ProductName = styled.span`
   width: 100%;
   margin: 15px;
 `
-
 const ProductPrice = styled.div`
-  right: 0;
-  align-items: right;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 10px auto;
 `
-
 const Count = styled.div`
   display: flex;
   justify-content: space-around;
   align-items: center;
   padding: 10px;
   border: 1px solid grey;
+  margin: 0 auto;
   background-color: lightgrey;
   border-radius: 10px;
   height: 100%;
-  width: 20%;
+  width: 50%;
 
   #add {
     padding: 5px;

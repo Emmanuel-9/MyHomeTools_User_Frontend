@@ -3,7 +3,6 @@ import { useParams } from "react-router-dom"
 import { useState, useEffect } from "react"
 import styled from "styled-components"
 import axios from "axios"
-
 import minus from "../Images/icon-minus.svg"
 import plus from "../Images/icon-plus.svg"
 import cart from "../Images/icon-cart.svg"
@@ -13,6 +12,9 @@ function ProductDetail() {
   const [products, setProducts] = useState([])
   const { productId } = useParams()
   const { userId } = useParams() //returns the object of the params for the route rendered
+
+  const user = localStorage.getItem("user")
+  console.log(user)
 
   useEffect(() => {
     fetchProduct()
@@ -321,19 +323,26 @@ const Buttons = styled.div`
 const Checkout = styled.div`
   width: 70%;
   margin-left: 100px;
-
+  /* display: inline-flex; */
   display: flex;
   justify-content: center;
   margin: 0 auto;
 
   button {
     padding: 15px;
-    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    width: 120%;
     margin-bottom: 20px;
     border: 1px solid lightgrey;
     border-radius: 20px;
     margin-right: 0;
     background-color: #a6c2c1;
+
+    :hover {
+      cursor: pointer;
+      background-color: grey;
+    }
   }
 
   @media only screen and (min-width: 786px) {

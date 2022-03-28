@@ -7,81 +7,95 @@ import HistoryIcon from "@mui/icons-material/History"
 
 import styled from "styled-components"
 import { useState } from "react"
-import { Link } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
 
 import CartComp from "./Cart"
 import History from "./History"
 
 const Navbar = () => {
+  const navigate = useNavigate()
   const [show, setShow] = useState(false)
   const [showCart, setshowCart] = useState(false)
   const [showHistory, setshowHistory] = useState(false)
+  const user = localStorage.getItem("user")
 
   return (
-    <Nav>
-      <Links>
-        <img
-          src={Burger}
-          alt={Burger}
-          className="burger"
-          onClick={() => setShow((prev) => !prev)}
-        />
-        <img src={Logo} alt={Logo} className="logo" />
-
-        <ul className={show ? "show" : ""}>
-          <li>
-            <img
-              src={Close}
-              alt={Close}
-              className="close"
-              onClick={() => setShow((prev) => !prev)}
-            />
-          </li>
-          <Link className="link" to="/">
-            <li>Home</li>
-          </Link>
-          <Link className="link" to="products">
-            <li>Products</li>
-          </Link>
-          <li>Contact Us</li>
-          <li>My Cart</li>
-          <li>About</li>
-        </ul>
-        <div
-          className={show ? "overlay showOverlay" : "overlay"}
-          onClick={() => setShow((prev) => !prev)}
-        ></div>
-      </Links>
-
-      <Profile>
-        <div className="cart">
-          <div className="item-count"></div>
+    user !== "" && (
+      <Nav>
+        <Links>
           <img
-            src={Cart}
-            alt={Cart}
-            onClick={() => {
-              setshowHistory(false)
-              setshowCart((prev) => !prev)
-            }}
+            src={Burger}
+            alt={Burger}
+            className="burger"
+            onClick={() => setShow((prev) => !prev)}
           />
-          {showCart && <CartComp />}
-        </div>
-        <div className="history">
+          <img src={Logo} alt={Logo} className="logo" />
 
-          <HistoryIcon
-            className="history-icon"
-            onClick={() => {
-              setshowCart(false)
-              setshowHistory((prev) => !prev)
-            }}
-          />
-          {showHistory && <History />}
-        </div>
-        <div className="avatar">
-          <img src={Avatar} alt={Avatar} />
-        </div>
-      </Profile>
-    </Nav>
+          <ul className={show ? "show" : ""}>
+            <li>
+              <img
+                src={Close}
+                alt={Close}
+                className="close"
+                onClick={() => setShow((prev) => !prev)}
+              />
+            </li>
+            <li></li>
+            <Link className="link" to="/">
+              <li>Home</li>
+            </Link>
+            <li></li>
+            <li></li>
+            <li></li>
+            <Link className="link" to="products">
+              <li>Products</li>
+            </Link>
+            {/* <li>Contact Us</li> */}
+          </ul>
+          <div
+            className={show ? "overlay showOverlay" : "overlay"}
+            onClick={() => setShow((prev) => !prev)}
+          ></div>
+        </Links>
+
+        <Profile>
+          <div className="cart">
+            <div className="item-count"></div>
+            <img
+              src={Cart}
+              alt={Cart}
+              onClick={() => {
+                setshowHistory(false)
+                setshowCart((prev) => !prev)
+              }}
+            />
+            {showCart && <CartComp />}
+          </div>
+          <div className="history">
+            <HistoryIcon
+              className="history-icon"
+              onClick={() => {
+                setshowCart(false)
+                setshowHistory((prev) => !prev)
+              }}
+            />
+            {showHistory && <History />}
+          </div>
+          <div className="avatar">
+            <img
+              src={Avatar}
+              alt={Avatar}
+              onClick={() => {
+                console.log("logout")
+                localStorage.setItem("token", "")
+                localStorage.setItem("user", "")
+                navigate("/login")
+              }}
+            />
+          </div>
+        </Profile>
+      </Nav>
+    )
   )
 }
 

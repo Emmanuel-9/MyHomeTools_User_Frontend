@@ -1,16 +1,21 @@
-import React, { useState, useRef } from "react"
+import React, { useState, useRef, useEffect } from "react"
 import styled from "styled-components"
 import { Link, useNavigate } from "react-router-dom"
 import axios, { AxiosError } from "axios"
 
 function Login() {
   const navigate = useNavigate()
-
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
-
+  const user = localStorage.getItem("user")
   const emailRef = useRef()
   const passwordRef = useRef()
+
+  useEffect(() => {
+    if (user !== "") {
+      navigate("/")
+    }
+  })
 
   const handleEmail = (e) => {
     setEmail(e.target.value)
@@ -34,6 +39,7 @@ function Login() {
         response.status === 201 && navigate("/")
         console.log("token for login is: ", response.data.token)
         localStorage.setItem("token", response.data.token)
+        localStorage.setItem("user", JSON.stringify(response.data))
       })
       .catch((error) => {
         console.log(error)
@@ -121,12 +127,11 @@ const Right = styled.div`
   border-radius: 70px 0 0 70px;
   display: flex;
   align-items: center;
-  justify-content:center;
+  justify-content: center;
 
   @media only screen and (max-width: 700px) {
     padding: 0;
     right: 0;
-    
   }
 `
 
@@ -199,7 +204,7 @@ const Form = styled.div`
     }
   }
 
-  @media only screen  and (max-width: 768px) {
+  @media only screen and (max-width: 768px) {
     right: 0;
 
     width: 80%;
