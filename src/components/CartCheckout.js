@@ -9,7 +9,7 @@ function CartCheckout() {
   const [count, setCount] = useState(0)
   const [gotten_products, setGottenProducts] = useState([])
   const [cart, setCart] = useState([])
-  const array = []
+  var array = []
   const user = JSON.parse(localStorage.getItem("user"))
 
   const user_id = user._id
@@ -20,24 +20,10 @@ function CartCheckout() {
       .then((response) => {
         console.log("product ids: ", JSON.stringify(response.data))
         console.log("product ids: ", response.data)
-        setProductIds(response.data)
+        setCart(response.data)
         // setProductId((product_id) => [...product_id, response.data])
       })
-      .then(() => {
-        for (let i = 0; i < product_ids.length; i++) {
-          axios
-            .get(`http://localhost:5004/product/${product_ids[i]}`)
-            .then((response) => {
-              array.push(response.data)
-              console.log("from the product table: ", response.data)
-              // setCart([...cart, response.data])
-            })
-        }
-      })
-      .then(() => {
-        console.log("cart: ", cart)
-        console.log("array: ", array)
-      })
+      
   }, [])
 
   const add = () => {
@@ -56,8 +42,8 @@ function CartCheckout() {
         <TopButton type="filled">Continue Shopping </TopButton>
 
         <Bottom>
-          {array ? (
-            array.map((product, key) => (
+          {cart ? (
+            cart.map((product, key) => (
               <Box key={key}>
                 <Product>
                   <ProductDetail>
@@ -72,10 +58,10 @@ function CartCheckout() {
                   >
                     -
                   </p>
-                  <p>{count}</p>
+                  <p>{product.quantity}</p>
                   <p
                     id="add"
-                    // onClick={add}
+                    onClick={add}
                   >
                     +
                   </p>

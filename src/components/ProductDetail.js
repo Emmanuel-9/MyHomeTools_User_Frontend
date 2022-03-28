@@ -41,6 +41,7 @@ function ProductDetail() {
   }
 
   const addToCart = () => {
+    axios.put("h")
     console.log("clicked add to cart")
 
     try {

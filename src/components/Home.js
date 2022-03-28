@@ -22,7 +22,7 @@ const FeaturedProducts = () => {
       .get("http://localhost:5004/product/")
       .then((res) => {
         console.log(res)
-        setProducts(res.data)
+        setProducts(res)
       })
       .catch((err) => {
         console.log(err)
