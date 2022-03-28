@@ -27,7 +27,9 @@ function ProductDetail() {
 
   const fetchProduct = () => {
     axios
-      .get(`http://localhost:5004/product/${productId}`)
+      .get(`http://localhost:5004/product/${productId}`
+      
+      )
       .then((res) => {
         console.log(res)
         console.log(res.data)
@@ -58,7 +60,13 @@ function ProductDetail() {
 
             <Availability>
               <p>Availability: </p>
-              <p className="available"> {products.availability}</p>
+              <p> 
+                {products.quantity < 1 ?(
+                  <p className= "unavailable">Unavailable</p>
+                ): (
+                  <p className = "available">In Stock</p>
+                )}
+              </p>
             </Availability>
           </Same>
 
@@ -108,7 +116,8 @@ function ProductDetail() {
 export default ProductDetail
 
 const Body = styled.div`
-  height: 50%; ;
+  height: 50%; 
+  background-color:#F5F5F5;
 `
 
 const Card = styled.div`
@@ -116,6 +125,7 @@ const Card = styled.div`
   padding: 5% 0;
   position: relative;
   top: 10px;
+  
 
   @media only screen and (min-width: 786px) {
     width: 80%;
@@ -141,6 +151,9 @@ const Images = styled.div`
 const Details = styled.div`
   width: 100%;
   margin-top: 100px;
+  /* border: 1px solid lightgrey; */
+  background-color: white;
+  border-radius: 10px;
 
   @media only screen and (min-width: 786px) {
     width: 80%;
@@ -205,6 +218,10 @@ const Availability = styled.div`
 
   .available {
     color: green;
+  }
+
+  .unavailable{
+    color: red;
   }
 
   @media only screen and (min-width: 786px) {

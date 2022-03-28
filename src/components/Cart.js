@@ -1,14 +1,68 @@
-import styled from "styled-components"
-import productImage from "../Images/product-1-thumbnail.png"
-import deleteIcon from "../Images/icon-delete.svg"
+import React, { useState, useEffect } from "react";
+import { useParams } from "react-router-dom";
+import axios from "axios";
+import styled from "styled-components";
+import productImage from "../Images/product-1-thumbnail.png";
+import deleteIcon from "../Images/icon-delete.svg";
 
-const Cart = () => {
+function Cart() {
+  const [quantity, setQuantity] = useState(0);
+  const [cart, setCart] = useState([]);
+  const [products, setProducts] = useState([]);
+  // const { cartId } = useParams()
+  const userId = localStorage.getItem("user_id");
+ 
+  useEffect(() => {
+   
+    const id = cart.products[0].product_id;
+        console.log(id)
+    axios
+      .get(`http://localhost:5004/cart/${userId}`)
+      .then((res) => {
+        setCart(res.data);
+        // console.log(res)
+        console.log(res.data);
+        console.log(typeof res.data);
+      })
+      .then(() => {
+        console.log(cart);
+      })
+      .then(() => {
+       
+      axios
+          .get(`http://localhost:5004/product/${id}`)
+          .then((res) => {
+            // console.log(res)
+            console.log(res.data);
+            setProducts(res.data);
+          })
+          .catch((err) => {
+            console.log(err);
+          });
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+    // fetchProduct();
+  }, []);
+
+  //   const product_id = cart.products[0].product_id || 'not yet set';
+  console.log(typeof cart);
+  console.log(typeof cart.products);
+  //   console.log( cart.products[0]._id);
+  //   console.log(typeof(cart.products._id))
+
+  //    const json = JSON.stringify(cart)
+  //    console.log('product_id in the first is: ', cart.products[0].product_id)
+  //    console.log('cart product array  is: ')
+
   return (
     <Body>
       <Header>
         <h3>Cart</h3>
       </Header>
       <Content>
+        <div className="Cartcontent"></div>
         <div className="thumbnail">
           <img src={productImage} alt="Coffee Maker" />
         </div>
@@ -26,10 +80,10 @@ const Cart = () => {
 
       <button>Checkout</button>
     </Body>
-  )
+  );
 }
 
-export default Cart
+export default Cart;
 
 const Body = styled.div`
   width: 350px;
@@ -74,12 +128,12 @@ const Body = styled.div`
     transform: translateX(0%);
     max-width: 350px;
   }
-`
+`;
 
 const Header = styled.div`
   border-bottom: solid 1px hsl(223, 64%, 95%);
   padding: 20px;
-`
+`;
 
 const Content = styled.div`
   padding: 20px;
@@ -101,4 +155,4 @@ const Content = styled.div`
   .details {
     margin-right: 20px;
   }
-`
+`;
