@@ -56,7 +56,7 @@ function Cart() {
   //    console.log('product_id in the first is: ', cart.products[0].product_id)
   //    console.log('cart product array  is: ')
 
-const Cart = () => {
+
 
   
   return (
@@ -166,4 +166,4 @@ const Content = styled.div`
   .details {
     /* margin-right: 20px; */
   }
-`;
+`
