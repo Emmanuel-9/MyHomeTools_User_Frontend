@@ -11,16 +11,17 @@ function ProductDetail() {
   const [quantity, setQuantity] = useState(0)
   const [products, setProducts] = useState([])
   const { productId } = useParams()
-  const { userId } = useParams() //returns the object of the params for the route rendered
+  // const { userId } = useParams()
+  //returns the object of the params for the route rendered
 
-  const user = localStorage.getItem("user")
+  const user = JSON.parse(localStorage.getItem("user"))
   console.log(user)
 
   useEffect(() => {
     fetchProduct()
   }, [])
 
-  console.log(userId)
+  // console.log(userId)
   const quantityHandler = (increment) => {
     if (increment) {
       setQuantity((prev) => (prev === 10 ? prev : prev + 1))
@@ -33,8 +34,8 @@ function ProductDetail() {
     axios
       .get(`http://localhost:5004/product/${productId}`)
       .then((res) => {
-        console.log(res)
-        console.log(res.data)
+        console.log("res first: ", res)
+        // console.log(res.data)
         setProducts(res.data)
       })
       .catch((err) => {
@@ -43,26 +44,39 @@ function ProductDetail() {
   }
 
   const handleAddToCart = () => {
-    const user_id = localStorage.setItem("user_id")
+    // const user_id = localStorage.getItem("user_id")
+    const user_id = user._id.toString()
+    console.log(user_id)
+    // console.log("product is : ", products)
     axios
-      .get(`http://localhost:5004/cart/`)
+      .get(`http://localhost:5004/cart/${user_id}`)
       .then((res) => {
-        if (cart === null) {
-          console.log(user_id)
-          axios.post(`http://localhost:5004/cart/${userId}`)
-          // .then((res) => {
-          //   //pass product id
-          // })
-        } else {
-          console.log(user_id)
-          axios.put(`http://localhost:5004/cart/${userId}`)
-          // .then((res) => {
-          //   //pass product id
-          // })
-        }
+        // if (res.body === "null") {
+        console.log("after null: ", user_id)
+        console.log("posting : ", user_id)
+        // axios.post(`http://localhost:5004/cart/${user_id}`, {
+        //   user_id: user_id,
+        //   products: [productId],
+        // })
+        // .then((res) => {
+        //   //pass product id
+        // })
+        // } else {
+
+        // .then((res) => {
+        //   //pass product id
+        // })
+        // }
       })
       .catch((err) => {
-        console.log("There was an error adding to cart")
+        console.log("not null: ", user_id)
+        axios.put(`http://localhost:5004/cart/${user_id}` ,{
+          user_id: user_id,
+          products: [productId],
+        }).then((res) => {
+          res.status(200).json(res)
+        })
+        // console.log("There was an error adding to cart")
       })
   }
 
