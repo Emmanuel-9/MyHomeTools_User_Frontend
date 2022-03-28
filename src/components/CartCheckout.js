@@ -15,6 +15,7 @@ function CartCheckout() {
   const user_id = user._id
 
   useEffect(() => {
+    console.log("user id is: ", user._id)
     axios
       .get(`http://localhost:5004/cart/6228b135bf10cd78603f946d`)
       .then((response) => {
@@ -75,9 +76,8 @@ function CartCheckout() {
         </Bottom>
 
         <Hr />
-
         <Total>
-          <p className="total">Sub-Total: Ksh - 350,000</p>
+          <p className="total">Total: {}</p>Ksh 350,000
         </Total>
       </Wrapper>
 

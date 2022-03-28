@@ -1,5 +1,5 @@
 import React from "react"
-import { useParams } from "react-router-dom"
+import { useParams, useNavigate } from "react-router-dom"
 import { useState, useEffect } from "react"
 import styled from "styled-components"
 import axios from "axios"
@@ -11,8 +11,7 @@ function ProductDetail() {
   const [quantity, setQuantity] = useState(0)
   const [products, setProducts] = useState([])
   const { productId } = useParams()
-  // const { userId } = useParams()
-  //returns the object of the params for the route rendered
+  const navigate = useNavigate()
 
   const user = JSON.parse(localStorage.getItem("user"))
   console.log(user)
@@ -34,8 +33,7 @@ function ProductDetail() {
     axios
       .get(`http://localhost:5004/product/${productId}`)
       .then((res) => {
-        console.log("res first: ", res)
-        // console.log(res.data)
+        console.log("res first: ", res.data)
         setProducts(res.data)
       })
       .catch((err) => {
@@ -44,39 +42,32 @@ function ProductDetail() {
   }
 
   const handleAddToCart = () => {
-    // const user_id = localStorage.getItem("user_id")
-    const user_id = user._id.toString()
+    const user_id = user._id
     console.log(user_id)
-    // console.log("product is : ", products)
     axios
-      .get(`http://localhost:5004/cart/${user_id}`)
+      .put(`http://localhost:5004/cart/${user_id}`, [productId])
       .then((res) => {
-        // if (res.body === "null") {
-        console.log("after null: ", user_id)
-        console.log("posting : ", user_id)
-        // axios.post(`http://localhost:5004/cart/${user_id}`, {
-        //   user_id: user_id,
-        //   products: [productId],
-        // })
-        // .then((res) => {
-        //   //pass product id
-        // })
-        // } else {
+        console.log("putting : ", res.data)
 
-        // .then((res) => {
-        //   //pass product id
-        // })
-        // }
+        if (res.data === "") {
+          console.log("posting: ")
+          axios
+            .post(`http://localhost:5004/cart`, {
+              user_id: user_id,
+              products: [productId],
+            })
+            .then((response) => {
+              console.log("response after the post: ", response)
+              // navigate("")
+              alert("successfully added to cart")
+            })
+        } else {
+          alert("item added to cart successfully")
+        }
       })
       .catch((err) => {
+        console.log("error: ", err.message)
         console.log("not null: ", user_id)
-        axios.put(`http://localhost:5004/cart/${user_id}` ,{
-          user_id: user_id,
-          products: [productId],
-        }).then((res) => {
-          res.status(200).json(res)
-        })
-        // console.log("There was an error adding to cart")
       })
   }
 
@@ -103,7 +94,14 @@ function ProductDetail() {
 
             <Availability>
               <p>Availability: </p>
-              <p className="available"> {products.availability}</p>
+              <p>
+                {/* {" "} */}
+                {products.quantity < 1 ? (
+                  <p id="unavailable">Unavailable</p>
+                ) : (
+                  <p id="available">In stock</p>
+                )}
+              </p>
             </Availability>
           </Same>
 
@@ -248,8 +246,12 @@ const Availability = styled.div`
   justify-content: space-between;
   margin: 1% 0;
 
-  .available {
+  #available {
     color: green;
+  }
+
+  #unavailable {
+    color: red;
   }
 
   @media only screen and (min-width: 786px) {
