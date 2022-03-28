@@ -12,11 +12,13 @@ function ProductDetail() {
   const [quantity, setQuantity] = useState(0)
   const [products, setProducts] = useState([])
   const { productId } = useParams()
+  const { userId } = useParams() //returns the object of the params for the route rendered
 
   useEffect(() => {
     fetchProduct()
   }, [])
 
+  console.log(userId)
   const quantityHandler = (increment) => {
     if (increment) {
       setQuantity((prev) => (prev === 10 ? prev : prev + 1))
@@ -38,6 +40,30 @@ function ProductDetail() {
       })
   }
 
+  const handleAddToCart = () => {
+    const user_id = localStorage.setItem("user_id")
+    axios
+      .get(`http://localhost:5004/cart/`)
+      .then((res) => {
+        if (cart === null) {
+          console.log(user_id)
+          axios.post(`http://localhost:5004/cart/${userId}`)
+          // .then((res) => {
+          //   //pass product id
+          // })
+        } else {
+          console.log(user_id)
+          axios.put(`http://localhost:5004/cart/${userId}`)
+          // .then((res) => {
+          //   //pass product id
+          // })
+        }
+      })
+      .catch((err) => {
+        console.log("There was an error adding to cart")
+      })
+  }
+
   return (
     <Body>
       <Card>
@@ -53,7 +79,10 @@ function ProductDetail() {
 
             <Price>
               <p className="original-price"> ksh {products.price}</p>
-              <p className="discounted-price"> ksh {products.price - products.discount}</p>
+              <p className="discounted-price">
+                {" "}
+                ksh {products.price - products.discount}
+              </p>
             </Price>
 
             <Availability>
@@ -94,7 +123,7 @@ function ProductDetail() {
 
           <Checkout>
             <div className="add-to-cart">
-              <button>
+              <button onClick={handleAddToCart}>
                 <img src={cart} alt={cart} /> Add to Cart
               </button>
             </div>

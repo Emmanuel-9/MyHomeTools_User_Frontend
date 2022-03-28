@@ -7,7 +7,9 @@ function CartCheckout() {
   const product = []
   const product_id = ["6232dccf79c2d6fd0dae59a5", "6232dad579c2d6fd0dae59a3"]
   const [count, setCount] = useState(0)
-  const gotten_products = []
+  const [gotten_products, setProducts] = useState([])
+
+  
 
   useEffect(() => {
     for (let i = 0; i < product_id.length; i++) {
@@ -15,11 +17,14 @@ function CartCheckout() {
         .get(`http://localhost:5004/product/${product_id[i]}`)
         .then((res) => {
           console.log(res.data)
-          gotten_products.push(res.data)
+          // gotten_products.push(res.data)
+          setProducts(res.data)
         })
     }
     console.log("this is my gotten products", gotten_products)
   }, [])
+
+
 
   const add = () => {
     setCount(count + 1)
@@ -58,7 +63,7 @@ function CartCheckout() {
                 <ProductPrice>{product.price}</ProductPrice>
               </Product>
             
-          )) : <p>"Oops, no products"</p>}
+          )) : <p>"Oops, no products"</p>} 
         </Bottom>
 
         <Hr />
