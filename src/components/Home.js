@@ -6,11 +6,13 @@ import Stickers from "./Stickers"
 import { Link, useNavigate } from "react-router-dom"
 import axios from "axios"
 
-const FeaturedProducts = () => {
+const FeaturedProducts = ({ data }) => {
   const navigate = useNavigate()
   const [products, setProducts] = useState([])
+  const [search, setSearch] = useState([])
   const user = localStorage.getItem("user")
   console.log(user)
+  console.log(data)
 
   useEffect(() => {
     if (user === "") {
@@ -18,15 +20,20 @@ const FeaturedProducts = () => {
     } else {
       navigate("/")
     }
-    axios
-      .get("http://localhost:5004/product")
-      .then((res) => {
-        console.log(res.data)
-        setProducts(res.data)
-      })
-      .catch((err) => {
-        console.log(err)
-      })
+    data
+      ? axios.get(`http://localhost:5004/product/${data}`).then((response) => {
+          setSearch(response.data)
+          console.log("search", response.data)
+        })
+      : axios
+          .get("http://localhost:5004/product")
+          .then((res) => {
+            console.log(res.data)
+            setProducts(res.data)
+          })
+          .catch((err) => {
+            console.log(err)
+          })
   }, [])
 
   return (
@@ -57,17 +64,29 @@ const FeaturedProducts = () => {
         </div>
 
         <div className="item-container">
-          {products.map((product) => (
-            <div key={product._id} className="card">
-              <img className="product-image" src={product.image} alt="" />
-              <h3>{product.product_name}</h3>
-              <p>{product.price}</p>
+          {search
+            ? search.map((product) => (
+                <div key={product._id} className="card">
+                  <img className="product-image" src={product.image} alt="" />
+                  <h3>{product.product_name}</h3>
+                  <p>{product.price}</p>
 
-              <Link to={`/products/${product._id}`} className="btn2">
-                View Product
-              </Link>
-            </div>
-          ))}
+                  <Link to={`/products/${product._id}`} className="btn2">
+                    View Product
+                  </Link>
+                </div>
+              ))
+            : products.map((product) => (
+                <div key={product._id} className="card">
+                  <img className="product-image" src={product.image} alt="" />
+                  <h3>{product.product_name}</h3>
+                  <p>{product.price}</p>
+
+                  <Link to={`/products/${product._id}`} className="btn2">
+                    View Product
+                  </Link>
+                </div>
+              ))}
         </div>
       </Container>
     </Body>
