@@ -14,7 +14,7 @@ function ProductDetail() {
 	const navigate = useNavigate()
 
 	const user = JSON.parse(localStorage.getItem("user"))
-	console.log(user)
+	console.log(" user is", user)
 
 	useEffect(() => {
 		fetchProduct()
@@ -42,14 +42,14 @@ function ProductDetail() {
 	}
 
 	const handleAddToCart = () => {
-		const user_id = user._id
+		const user_id = user.user_id
 		console.log(user_id)
 		axios
 			.put(`http://localhost:5004/cart/${user_id}`, [productId])
 			.then((res) => {
 				console.log("putting : ", res.data)
 
-				if (res.data === "") {
+				if (res.data === null) {
 					console.log("posting: ")
 					axios
 						.post(`http://localhost:5004/cart`, {
@@ -94,14 +94,14 @@ function ProductDetail() {
 
 						<Availability>
 							<p>Availability: </p>
-							<p>
+							<div>
 								{/* {" "} */}
 								{products.quantity < 1 ? (
 									<p id="unavailable">Unavailable</p>
 								) : (
 									<p id="available">In stock</p>
 								)}
-							</p>
+							</div>
 						</Availability>
 					</Same>
 
