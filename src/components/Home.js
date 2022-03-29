@@ -12,28 +12,32 @@ const FeaturedProducts = ({ data }) => {
   const [search, setSearch] = useState([])
   const user = localStorage.getItem("user")
   console.log(user)
-  // console.log(data)
 
   useEffect(() => {
+    console.log("data is ", data)
     if (user === "") {
       navigate("/login")
     } else {
-      navigate("/")
+      // navigate("/")
+      data
+        ? axios
+            .get(`http://localhost:5004/product/${data}`)
+            .then((response) => {
+              console.log("get one")
+              setSearch(response.data)
+              console.log("search", response.data)
+            })
+        : axios
+            .get("http://localhost:5004/product")
+            .then((res) => {
+              console.log("get all")
+              console.log(res.data)
+              setProducts(res.data)
+            })
+            .catch((err) => {
+              console.log(err)
+            })
     }
-    // data
-    //   ? axios.get(`http://localhost:5004/product/${data}`).then((response) => {
-    //       setSearch(response.data)
-    //       console.log("search", response.data)
-    //     })
-       axios
-          .get("http://localhost:5004/product")
-          .then((res) => {
-            console.log(res.data)
-            setProducts(res.data)
-          })
-          .catch((err) => {
-            console.log(err)
-          })
   }, [])
 
   return (
@@ -64,20 +68,23 @@ const FeaturedProducts = ({ data }) => {
         </div>
 
         <div className="item-container">
-          {
-          // search
-          //   ? search.map((product) => (
-          //       <div key={product._id} className="card">
-          //         <img className="product-image" src={product.image} alt="" />
-          //         <h3>{product.product_name}</h3>
-          //         <p>{product.price}</p>
+          {search
+            ? products
+                .filter((filteredProduct) =>
+                  filteredProduct.product_name.toLowerCase().includes(data)
+                )
+                .map((product, key) => (
+                  <div key={product._id} className="card">
+                    <img className="product-image" src={product.image} alt="" />
+                    <h3>{product.product_name}</h3>
+                    <p>{product.price}</p>
 
-          //         <Link to={`/products/${product._id}`} className="btn2">
-          //           View Product
-          //         </Link>
-          //       </div>
-          //     ))
-             products.map((product) => (
+                    <Link to={`/products/${product._id}`} className="btn2">
+                      View Product
+                    </Link>
+                  </div>
+                ))
+            : products.map((product, key) => (
                 <div key={product._id} className="card">
                   <img className="product-image" src={product.image} alt="" />
                   <h3>{product.product_name}</h3>

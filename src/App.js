@@ -26,12 +26,12 @@ function App() {
         <Routes>
           <Route path="/register" element={<Register />} />
           <Route path="/login" element={<Login />} />
-          <Route path="/" element={<FeaturedProducts data={data}/>} />
+          <Route path="/" element={<FeaturedProducts data={data} />} />
 
           <Route path="/products/:productId" element={<ProductDetail />} />
           <Route path="/cart" element={<CartCheckout />} />
 
-          <Route path="/" element={<Home />} />
+          {/* <Route path="/" element={<Home data={data} />} /> */}
         </Routes>
       </BrowserRouter>
     </div>
