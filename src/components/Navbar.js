@@ -4,20 +4,25 @@ import Avatar from "../Images/image-avatar.png"
 import Burger from "../Images/icon-menu.svg"
 import Close from "../Images/icon-close.svg"
 import HistoryIcon from "@mui/icons-material/History"
-
+import SearchOutlinedIcon from "@mui/icons-material/SearchOutlined";
+ 
 import styled from "styled-components"
 import { useState } from "react"
-import { Link, useNavigate } from "react-router-dom"
+import { Link, useNavigate, useLocation } from "react-router-dom"
+// import {  useLocation } from "react-router-dom"
 
 import CartComp from "./Cart"
 import History from "./History"
 
-const Navbar = () => {
-	const navigate = useNavigate()
-	const [show, setShow] = useState(false)
-	const [showCart, setshowCart] = useState(false)
-	const [showHistory, setshowHistory] = useState(false)
-	const user = localStorage.getItem("user")
+function Navbar({ childToParent }) {
+  const navigate = useNavigate()
+  const [show, setShow] = useState(false)
+  const [showCart, setshowCart] = useState(false)
+  const [showHistory, setshowHistory] = useState(false)
+  const [search, setSearch] = useState("")
+  const location = useLocation()
+  const { pathname } = location
+  const user = localStorage.getItem("user")
 
 	return (
 		user !== "" && (
@@ -58,46 +63,57 @@ const Navbar = () => {
 					></div>
 				</Links>
 
-				<Profile>
-					<div className="cart">
-						<div className="item-count"></div>
-						<img
-							src={Cart}
-							alt={Cart}
-							onClick={() => {
-								navigate("/cart")
-								// setshowHistory(false)
-								// setshowCart((prev) => !prev)
-							}}
-						/>
-						{/* {showCart && <CartComp />} */}
-					</div>
-					<div className="history">
-						<HistoryIcon
-							className="history-icon"
-							onClick={() => {
-								setshowCart(false)
-								setshowHistory((prev) => !prev)
-							}}
-						/>
-						{showHistory && <History />}
-					</div>
-					<div className="avatar">
-						<img
-							src={Avatar}
-							alt={Avatar}
-							onClick={() => {
-								console.log("logout")
-								localStorage.setItem("token", "")
-								localStorage.setItem("user", "")
-								navigate("/login")
-							}}
-						/>
-					</div>
-				</Profile>
-			</Nav>
-		)
-	)
+        {location.pathname === "/" && (
+          <Search>
+            <SearchOutlinedIcon id="search-icon" />
+            <input
+              type="text"
+              onChange={(event) => childToParent(event.target.value)}
+              placeholder="Search for an appliance"
+            />
+          </Search>
+        )}
+
+        <Profile>
+          <div className="cart">
+            <div className="item-count"></div>
+            <img
+              src={Cart}
+              alt={Cart}
+              onClick={() => {
+                navigate("/cart")
+                // setshowHistory(false)
+                // setshowCart((prev) => !prev)
+              }}
+            />
+            {/* {showCart && <CartComp />} */}
+          </div>
+          <div className="history">
+            <HistoryIcon
+              className="history-icon"
+              onClick={() => {
+                setshowCart(false)
+                setshowHistory((prev) => !prev)
+              }}
+            />
+            {showHistory && <History />}
+          </div>
+          <div className="avatar">
+            <img
+              src={Avatar}
+              alt={Avatar}
+              onClick={() => {
+                console.log("logout")
+                localStorage.setItem("token", "")
+                localStorage.setItem("user", "")
+                navigate("/login")
+              }}
+            />
+          </div>
+        </Profile>
+      </Nav>
+    )
+  )
 }
 
 export default Navbar
@@ -126,6 +142,28 @@ const Nav = styled.div`
 		margin: 0;
 		border-bottom: none;
 	}
+`
+const Search = styled.div`
+  box-shadow: rgb(204, 219, 232) 3px 3px 6px 0px inset,
+    rgba(255, 255, 255, 0.5) -3px -3px 6px 1px inset;
+  width: 35%;
+  margin: 0 9 0 5%;
+  padding: 7px;
+  display: flex;
+  justify-content: space-between;
+  border-radius: 10px;
+
+  #search-icon {
+    cursor: pointer;
+  }
+
+  input {
+    width: 100%;
+    outline: none;
+    border: none;
+    margin: 0 0 0 5px;
+    background-color: transparent;
+  }
 `
 
 const Links = styled.div`
