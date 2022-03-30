@@ -4,19 +4,24 @@ import Avatar from "../Images/image-avatar.png"
 import Burger from "../Images/icon-menu.svg"
 import Close from "../Images/icon-close.svg"
 import HistoryIcon from "@mui/icons-material/History"
-
+import SearchOutlinedIcon from "@mui/icons-material/SearchOutlined";
+ 
 import styled from "styled-components"
 import { useState } from "react"
-import { Link, useNavigate } from "react-router-dom"
+import { Link, useNavigate, useLocation } from "react-router-dom"
+// import {  useLocation } from "react-router-dom"
 
 import CartComp from "./Cart"
 import History from "./History"
 
-const Navbar = () => {
+function Navbar({ childToParent }) {
   const navigate = useNavigate()
   const [show, setShow] = useState(false)
   const [showCart, setshowCart] = useState(false)
   const [showHistory, setshowHistory] = useState(false)
+  const [search, setSearch] = useState("")
+  const location = useLocation()
+  const { pathname } = location
   const user = localStorage.getItem("user")
 
   return (
@@ -57,6 +62,17 @@ const Navbar = () => {
             onClick={() => setShow((prev) => !prev)}
           ></div>
         </Links>
+
+        {location.pathname === "/" && (
+          <Search>
+            <SearchOutlinedIcon id="search-icon" />
+            <input
+              type="text"
+              onChange={(event) => childToParent(event.target.value)}
+              placeholder="Search for an appliance"
+            />
+          </Search>
+        )}
 
         <Profile>
           <div className="cart">
@@ -125,6 +141,28 @@ const Nav = styled.div`
     padding: 30px 20px;
     margin: 0;
     border-bottom: none;
+  }
+`
+const Search = styled.div`
+  box-shadow: rgb(204, 219, 232) 3px 3px 6px 0px inset,
+    rgba(255, 255, 255, 0.5) -3px -3px 6px 1px inset;
+  width: 35%;
+  margin: 0 9 0 5%;
+  padding: 7px;
+  display: flex;
+  justify-content: space-between;
+  border-radius: 10px;
+
+  #search-icon {
+    cursor: pointer;
+  }
+
+  input {
+    width: 100%;
+    outline: none;
+    border: none;
+    margin: 0 0 0 5px;
+    background-color: transparent;
   }
 `
 

@@ -31,7 +31,7 @@ import cart from "./Images/icon-cart.svg";
    //create function 
   const fetchProduct = () =>{
     axios
-    .get(`http://localhost:5000/product/${productId}`)
+    .get(`http://localhost:5004/product/${productId}`)
     .then((res) =>{
       console.log(res);
       console.log(res.data);

@@ -6,28 +6,39 @@ import Stickers from "./Stickers"
 import { Link, useNavigate } from "react-router-dom"
 import axios from "axios"
 
-const FeaturedProducts = () => {
-	const navigate = useNavigate()
-	const [products, setProducts] = useState([])
-	const user = localStorage.getItem("user")
-	console.log(user)
+const FeaturedProducts = ({ data }) => {
+  const navigate = useNavigate()
+  const [products, setProducts] = useState([])
+  const [search, setSearch] = useState([])
+  const user = localStorage.getItem("user")
+  console.log(user)
 
-	useEffect(() => {
-		if (user === "") {
-			navigate("/login")
-		} else {
-			navigate("/")
-		}
-		axios
-			.get("http://localhost:5004/product")
-			.then((res) => {
-				console.log(res.data)
-				setProducts(res.data)
-			})
-			.catch((err) => {
-				console.log(err)
-			})
-	}, [])
+  useEffect(() => {
+    console.log("data is ", data)
+    if (user === "") {
+      navigate("/login")
+    } else {
+      // navigate("/")
+      data
+        ? axios
+            .get(`http://localhost:5004/product/${data}`)
+            .then((response) => {
+              console.log("get one")
+              setSearch(response.data)
+              console.log("search", response.data)
+            })
+        : axios
+            .get("http://localhost:5004/product")
+            .then((res) => {
+              console.log("get all")
+              console.log(res.data)
+              setProducts(res.data)
+            })
+            .catch((err) => {
+              console.log(err)
+            })
+    }
+  }, [])
 
 	return (
 		<Body>
@@ -56,22 +67,38 @@ const FeaturedProducts = () => {
 					<img src={Breakline} alt="break" />
 				</div>
 
-				<div className="item-container">
-					{products.map((product) => (
-						<div key={product._id} className="card">
-							<img className="product-image" src={product.image} alt="" />
-							<h3>{product.product_name}</h3>
-							<p>{product.price}</p>
+        <div className="item-container">
+          {search
+            ? products
+                .filter((filteredProduct) =>
+                  filteredProduct.product_name.toLowerCase().includes(data)
+                )
+                .map((product, key) => (
+                  <div key={product._id} className="card">
+                    <img className="product-image" src={product.image} alt="" />
+                    <h3>{product.product_name}</h3>
+                    <p>{product.price}</p>
 
-							<Link to={`/products/${product._id}`} className="btn2">
-								View Product
-							</Link>
-						</div>
-					))}
-				</div>
-			</Container>
-		</Body>
-	)
+                    <Link to={`/products/${product._id}`} className="btn2">
+                      View Product
+                    </Link>
+                  </div>
+                ))
+            : products.map((product, key) => (
+                <div key={product._id} className="card">
+                  <img className="product-image" src={product.image} alt="" />
+                  <h3>{product.product_name}</h3>
+                  <p>{product.price}</p>
+
+                  <Link to={`/products/${product._id}`} className="btn2">
+                    View Product
+                  </Link>
+                </div>
+              ))}
+        </div>
+      </Container>
+    </Body>
+  )
 }
 
 export default FeaturedProducts
