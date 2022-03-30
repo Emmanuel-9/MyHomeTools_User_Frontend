@@ -8,7 +8,7 @@ import plus from "../Images/icon-plus.svg"
 import cart from "../Images/icon-cart.svg"
 
 function ProductDetail() {
-	const [quantity, setQuantity] = useState(0)
+	const [quantity, setQuantity] = useState(1)
 	const [products, setProducts] = useState([])
 	const { productId } = useParams()
 	const navigate = useNavigate()
@@ -42,7 +42,7 @@ function ProductDetail() {
 	}
 
 	const handleAddToCart = () => {
-		const user_id = user.user_id
+		const user_id = user._id
 		console.log(user_id)
 		axios
 			.put(`http://localhost:5004/cart/${user_id}`, [productId])

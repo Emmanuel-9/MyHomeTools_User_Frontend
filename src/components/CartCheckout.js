@@ -15,7 +15,7 @@ function CartCheckout() {
 	// var array = []
 	const user = JSON.parse(localStorage.getItem("user"))
 
-	const user_id = user.user_id || ""
+	const user_id = user._id || ""
 	console.log("user id: ", user_id)
 
 	useEffect(() => {
@@ -107,7 +107,7 @@ function CartCheckout() {
 		</Container>
 	) : (
 		// return (
-		<p>Loading</p>
+		<p>Oops Nothing in Cart</p>
 	)
 }
 
