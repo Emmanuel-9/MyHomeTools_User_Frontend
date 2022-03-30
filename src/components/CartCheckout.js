@@ -37,6 +37,8 @@ function CartCheckout() {
     }
   }
 
+  
+
   return (
     <Container>
       <Wrapper>
@@ -70,10 +72,12 @@ function CartCheckout() {
                 <ProductPrice>
                   <p>{product.product_object.price * product.occurence}</p>
                 </ProductPrice>
+               
               </Box>
             ))
           ) : (
             <p>"Oops, no products"</p>
+           
           )}
         </Bottom>
 
