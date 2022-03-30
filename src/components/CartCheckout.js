@@ -4,12 +4,15 @@ import CheckoutDetails from "./CheckoutDetails"
 import axios from "axios"
 
 function CartCheckout() {
-	const [product_ids, setProductIds] = useState([])
+	// const [product_ids, setProductIds] = useState([])
 	// const product_id = ["6232dccf79c2d6fd0dae59a5", "6232dad579c2d6fd0dae59a3"] //do a /GET cart to get the products array
 	const [count, setCount] = useState(0)
-	const [gotten_products, setGottenProducts] = useState([])
+	// const [gotten_products, setGottenProducts] = useState([])
 	const [cart, setCart] = useState([])
-	var array = []
+	const [loading, setLoading] = useState(true)
+	const [prices, setPrices] = useState([])
+	const [occurrences, setOccurrences] = useState([])
+	// var array = []
 	const user = JSON.parse(localStorage.getItem("user"))
 
 	const user_id = user.user_id || ""
@@ -20,21 +23,31 @@ function CartCheckout() {
 		axios
 			.get(`http://localhost:5004/cart/${user_id}`)
 			.then((response) => {
-				// console.log("cart products from API: ", JSON.stringify(response.data))
-				console.log("cart products from API: ", response.data)
 				setCart(response.data)
-				// setProductId((product_id) => [...product_id, response.data])
 			})
 			.then(() => {
-				// console.log("then")
+				setOccurrences([])
 				for (let i = 0; i < cart.length; i++) {
-					console.log("loop", cart[i].occurence)
+					setOccurrences((occurences) => [...occurences, cart[i].occurence])
 				}
+			})
+			.then(() => {
+				setLoading(false)
+				console.log("occurences: ", occurrences)
 			})
 	}, [])
 
 	console.log("cart array is: ", cart)
+	console.log("prices: ", prices)
 
+	var sum = 0
+	for (var i = 0; i < prices.length; i++) {
+		sum += prices[i] * occurrences[i]
+	}
+
+	console.log(sum)
+
+	//dcn
 	const add = () => {
 		setCount(count + 1)
 	}
@@ -44,7 +57,7 @@ function CartCheckout() {
 		}
 	}
 
-	return (
+	return loading === false ? (
 		<Container>
 			<Wrapper>
 				<Title>Shopping Cart</Title>
@@ -83,15 +96,18 @@ function CartCheckout() {
 						<p>"Oops, no products"</p>
 					)}
 				</Bottom>
-
+				{/*  */}
 				<Hr />
 				<Total>
-					<p className="total">Total: {}</p>Ksh 350,000
+					<p className="total">Total: {occurrences}</p>
 				</Total>
 			</Wrapper>
 
 			<CheckoutDetails />
 		</Container>
+	) : (
+		// return (
+		<p>Loading</p>
 	)
 }
 
