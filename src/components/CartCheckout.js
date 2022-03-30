@@ -10,21 +10,23 @@ function CartCheckout() {
   const [gotten_products, setGottenProducts] = useState([])
   const [cart, setCart] = useState([])
   var array = []
-  const user = JSON.parse(localStorage.getItem("user"))
+  const user = JSON.parse(localStorage.getItem("user")) || ""
 
+  console.log("whole user", user)
   const user_id = user._id
+  console.log("user id", user._id)
 
   useEffect(() => {
-    console.log("user id is: ", user._id)
-    axios
-      .get(`http://localhost:5004/cart/6228b135bf10cd78603f946d`)
-      .then((response) => {
-        console.log("product ids: ", JSON.stringify(response.data))
-        console.log("product ids: ", response.data)
-        setCart(response.data)
-        // setProductId((product_id) => [...product_id, response.data])
-      })
+    // console.log("user id is: ", user._id)
+    axios.get(`http://localhost:5004/cart/${user_id}`).then((response) => {
+      console.log("product ids: ", JSON.stringify(response.data))
+      console.log("product ids: ", response.data)
+      setCart(response.data)
+      // setProductId((product_id) => [...product_id, response.data])
+    })
   }, [])
+
+  console.log("cart is", cart)
 
   const add = () => {
     setCount(count + 1)

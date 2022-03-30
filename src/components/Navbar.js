@@ -65,11 +65,12 @@ const Navbar = () => {
               src={Cart}
               alt={Cart}
               onClick={() => {
-                setshowHistory(false)
-                setshowCart((prev) => !prev)
+                navigate("/cart")
+                // setshowHistory(false)
+                // setshowCart((prev) => !prev)
               }}
             />
-            {showCart && <CartComp />}
+            {/* {showCart && <CartComp />} */}
           </div>
           <div className="history">
             <HistoryIcon
