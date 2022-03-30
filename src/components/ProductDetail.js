@@ -25,7 +25,7 @@ function ProductDetail() {
 		if (increment) {
 			setQuantity((prev) => (prev === 10 ? prev : prev + 1))
 		} else {
-			setQuantity((prev) => (prev === 0 ? prev : prev - 1))
+			setQuantity((prev) => (prev === 1 ? prev : prev - 1))
 		}
 	}
 
@@ -41,11 +41,13 @@ function ProductDetail() {
 			})
 	}
 
+	const array = Array(quantity).fill(productId)
+	console.log("array", array)
 	const handleAddToCart = () => {
 		const user_id = user._id
 		console.log(user_id)
 		axios
-			.put(`http://localhost:5004/cart/${user_id}`, [productId])
+			.put(`http://localhost:5004/cart/${user_id}`, array)
 			.then((res) => {
 				console.log("putting : ", res.data)
 
