@@ -9,6 +9,7 @@ function CartCheckout() {
 	const [count, setCount] = useState(0)
 	const [gotten_products, setGottenProducts] = useState([])
 	const [cart, setCart] = useState([])
+	const [reload, setReload] = useState(false)
 	var array = []
 	const user = JSON.parse(localStorage.getItem("user")) || ""
 
@@ -24,7 +25,7 @@ function CartCheckout() {
 			setCart(response.data)
 			// setProductId((product_id) => [...product_id, response.data])
 		})
-	}, [])
+	}, [reload])
 
 	console.log("cart is", cart)
 
@@ -44,8 +45,10 @@ function CartCheckout() {
 			.put(`http://localhost:5004/cart/remove/${user_id}`, [product])
 			.then((response) => {
 				console.log("deleted single product")
+				setReload(true)
 			})
 		console.log("prod", product)
+		setReload(false)
 	}
 
 	if (cart.length != 0) {
