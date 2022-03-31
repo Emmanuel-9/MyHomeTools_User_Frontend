@@ -4,28 +4,87 @@ import CheckoutDetails from "./CheckoutDetails"
 import axios from "axios"
 
 function CartCheckout() {
-  const [product_ids, setProductIds] = useState([])
-  // const product_id = ["6232dccf79c2d6fd0dae59a5", "6232dad579c2d6fd0dae59a3"] //do a /GET cart to get the products array
-  const [count, setCount] = useState(0)
-  const [gotten_products, setGottenProducts] = useState([])
-  const [cart, setCart] = useState([])
-  const [reload, setReload] = useState(false)
-  var array = []
-  const user = JSON.parse(localStorage.getItem("user")) || ""
+	const [product_ids, setProductIds] = useState([])
+	// const product_id = ["6232dccf79c2d6fd0dae59a5", "6232dad579c2d6fd0dae59a3"] //do a /GET cart to get the products array
+	const [count, setCount] = useState(0)
+	const [gotten_products, setGottenProducts] = useState([])
+	const [cart, setCart] = useState([])
+	const [reload, setReload] = useState(false)
+	const [prices, setPrices] = useState([])
+	const [grandTotal, setGrandTotal] = useState([])
 
-  console.log("whole user", user)
-  const user_id = user._id
-  console.log("user id", user._id)
+	const [occurrences, setOccurrences] = useState([])
+	// var total = 0
+	const [finalTotal, setFinalTotal] = useState([])
+	const user = JSON.parse(localStorage.getItem("user")) || ""
 
-  useEffect(() => {
-    // console.log("user id is: ", user._id)
-    axios.get(`http://localhost:5004/cart/${user_id}`).then((response) => {
-      // console.log("product ids: ", JSON.stringify(response.data))
-      // console.log("product ids: ", response.data)
-      setCart(response.data)
-      // setProductId((product_id) => [...product_id, response.data])
-    })
-  }, [reload])
+	console.log("whole user", user)
+	const user_id = user._id
+	console.log("user id", user._id)
+	//
+	useEffect(() => {
+		// console.log("user id is: ", user._id)
+		axios
+			.get(`http://localhost:5004/cart/${user_id}`)
+			.then((response) => {
+				// console.log("product ids: ", JSON.stringify(response.data))
+				// console.log("product ids: ", response.data)
+				setCart(response.data)
+				// setProductId((product_id) => [...product_id, response.data])
+			})
+			.then(() => {
+				setPrices([])
+				setOccurrences([])
+				for (let i = 0; i < cart.length; i++) {
+					setPrices((prices) => [...prices, cart[i].product_object.price])
+					setOccurrences((occurrences) => [...occurrences, cart[i].occurence])
+				}
+				setReload(true)
+			})
+			.then(() => {
+				console.log(occurrences)
+				console.log(prices)
+			})
+			.then(() => {
+				var resolvedFlag = true
+
+				let loop = () => {
+					// return new Promise((resolve) => {
+
+					// })
+					return finalTotal
+				}
+
+				const mypromise = function calculateTotal() {
+					return new Promise((resolve, reject) => {
+						if (resolvedFlag == true) {
+							setFinalTotal([])
+							resolve(() => {
+								for (let i = 0; i < prices.length; i++) {
+									const total = prices[i] * occurrences[i]
+									setFinalTotal((arr) => [...arr, total])
+								}
+								return finalTotal
+							})
+						} else {
+							reject("Rejected")
+						}
+					})
+				}
+				//
+				mypromise()
+					.then((res) => {
+						// console.log("my promise is", mypromise())
+						setGrandTotal(res().reduce((a, b) => a + b, 0))
+					})
+					.then(() => {
+						console.log("this is the response: ", grandTotal)
+					})
+					.catch((error) => {
+						console.log("this is the error ", error)
+					})
+			})
+	}, [reload])
 
   console.log("cart is", cart)
 
@@ -38,71 +97,71 @@ function CartCheckout() {
     }
   }
 
-  const handleRemove = (product) => (e) => {
-    //modify the current stateful list with a filter function
-    // const newCart = cart.filter((product) => product.product_id !== product.product_object._id);
-    axios
-      .put(`http://localhost:5004/cart/remove/${user_id}`, [product])
-      .then((response) => {
-        console.log("deleted single product")
-        setReload(true)
-      })
-    console.log("prod", product)
-    setReload(false)
-  }
-
-  if (cart.length != 0) {
-    return (
-      <Container>
-        <Wrapper>
-          <Title>Shopping Cart</Title>
-          <TopButton type="filled">Continue Shopping </TopButton>
-
-          <Bottom>
-            {cart ? (
-              cart.map((product, key) => (
-                <Box key={key}>
-                  <Product>
-                    <ProductDetail>
-                      <img src={product.product_object.image} alt="tv" />
-                      <ProductName>
-                        {product.product_object.product_name}
-                      </ProductName>
-                      <button
-                        type="button"
-                        onClick={handleRemove(product.product_object._id)}
-                      >
-                        Remove
-                      </button>
-                    </ProductDetail>
-                  </Product>
-                  <Count>
-                    <p
-                      id="subtract"
-                      // onClick={subtract}
-                    >
-                      -
-                    </p>
-                    <p>{product.occurence}</p>
-                    <p id="add" onClick={add}>
-                      +
-                    </p>
-                  </Count>
-                  <ProductPrice>
-                    <p>{product.product_object.price * product.occurence}</p>
-                  </ProductPrice>
-                </Box>
-              ))
-            ) : (
-              <p>"Oops, no products"</p>
-            )}
-          </Bottom>
-          <Hr />
-
-          <Total>
-            <p className="total">Total: {}</p>Ksh 350,000
-          </Total>
-        </Wrapper>
+	const handleRemove = (product) => (e) => {
+		//modify the current stateful list with a filter function
+		// const newCart = cart.filter((product) => product.product_id !== product.product_object._id);
+		axios
+			.put(`http://localhost:5004/cart/remove/${user_id}`, [product])
+			.then((response) => {
+				console.log("deleted single product")
+				setReload(true)
+			})
+		console.log("prod", product)
+		setReload(true)
+	}
+	//
+	if (cart.length != 0) {
+		return (
+			<Container>
+				<Wrapper>
+					<Title>Shopping Cart</Title>
+					<TopButton type="filled">Continue Shopping </TopButton>
+					{/*  */}
+					<Bottom>
+						{cart ? (
+							cart.map((product, key) => (
+								<Box key={key}>
+									<Product>
+										<ProductDetail>
+											<img src={product.product_object.image} alt="tv" />
+											<ProductName>
+												{product.product_object.product_name}
+											</ProductName>
+											<button
+												type="button"
+												onClick={handleRemove(product.product_object._id)}
+											>
+												Remove
+											</button>
+										</ProductDetail>
+									</Product>
+									<Count>
+										<p
+											id="subtract"
+											// onClick={subtract}
+										>
+											-
+										</p>
+										<p>{product.occurence}</p>
+										<p id="add" onClick={add}>
+											+
+										</p>
+									</Count>
+									<ProductPrice>
+										<p>{product.product_object.price * product.occurence}</p>
+									</ProductPrice>
+								</Box>
+							))
+						) : (
+							<p>"Oops, no products"</p>
+						)}
+					</Bottom>
+					<Hr />
+					{/*  */}
+					<Total>
+						<p className="total">Total: {grandTotal}</p>
+					</Total>
+				</Wrapper>
 
         <CheckoutDetails />
       </Container>
