@@ -54,13 +54,17 @@ const FeaturedProducts = ({ data }) => {
 				</div>
 
 				<Buttons>
-					<button className="btn1">Shop Now</button>
+					<button className="btn1">
+						<a href="#container">
+						Shop Now
+						</a>
+						</button>
 				</Buttons>
 
 				<Stickers />
 			</Banner>
 
-			<Container>
+			<Container id="container">
 				<h1 className="heading">FEATURED PRODUCTS</h1>
 
 				<div className="break">
@@ -169,6 +173,7 @@ const Buttons = styled.div`
 	width: 200px;
 	text-align: center;
 	border: 1px solid black;
+	
 
 	button {
 		padding: 5px;
@@ -180,7 +185,14 @@ const Buttons = styled.div`
 		font-family: "Roboto", sans-serif;
 		font-weight: 400;
 		text-align: center;
+		
 		transition: all 0.15s;
+
+		a{
+			text-decoration: none;
+			color: black;
+		}
+
 	}
 
 	:hover {
@@ -194,22 +206,22 @@ const Buttons = styled.div`
 `
 const Container = styled.div`
 	position: relative;
-	top: 550px;
+	top: 680px;
 	text-align: center;
 
 	.break {
 		position: absolute;
-		left: 10px;
+		left: 15%;
 		top: 25px;
 
 		@media (min-width: 786px) {
 			position: absolute;
-			left: 560px;
+			left: 40%;
 			top: 25px;
 		}
 	}
 	img {
-		width: 400px;
+		width: 300px;
 	}
 
 	.item-container {
@@ -220,7 +232,7 @@ const Container = styled.div`
 		flex-wrap: wrap;
 		margin-left: 70px;
 	}
-	.card {
+	.card{
 		border: 1px solid lightgrey;
 		text-align: center;
 		border-radius: 2px;
