@@ -10,21 +10,80 @@ function CartCheckout() {
 	const [gotten_products, setGottenProducts] = useState([])
 	const [cart, setCart] = useState([])
 	const [reload, setReload] = useState(false)
-	var array = []
+	const [prices, setPrices] = useState([])
+	const [grandTotal, setGrandTotal] = useState([])
+
+	const [occurrences, setOccurrences] = useState([])
+	// var total = 0
+	const [finalTotal, setFinalTotal] = useState([])
 	const user = JSON.parse(localStorage.getItem("user")) || ""
 
 	console.log("whole user", user)
 	const user_id = user._id
 	console.log("user id", user._id)
-
+	//
 	useEffect(() => {
 		// console.log("user id is: ", user._id)
-		axios.get(`http://localhost:5004/cart/${user_id}`).then((response) => {
-			// console.log("product ids: ", JSON.stringify(response.data))
-			// console.log("product ids: ", response.data)
-			setCart(response.data)
-			// setProductId((product_id) => [...product_id, response.data])
-		})
+		axios
+			.get(`http://localhost:5004/cart/${user_id}`)
+			.then((response) => {
+				// console.log("product ids: ", JSON.stringify(response.data))
+				// console.log("product ids: ", response.data)
+				setCart(response.data)
+				// setProductId((product_id) => [...product_id, response.data])
+			})
+			.then(() => {
+				setPrices([])
+				setOccurrences([])
+				for (let i = 0; i < cart.length; i++) {
+					setPrices((prices) => [...prices, cart[i].product_object.price])
+					setOccurrences((occurrences) => [...occurrences, cart[i].occurence])
+				}
+				setReload(true)
+			})
+			.then(() => {
+				console.log(occurrences)
+				console.log(prices)
+			})
+			.then(() => {
+				var resolvedFlag = true
+
+				let loop = () => {
+					// return new Promise((resolve) => {
+
+					// })
+					return finalTotal
+				}
+
+				const mypromise = function calculateTotal() {
+					return new Promise((resolve, reject) => {
+						if (resolvedFlag == true) {
+							setFinalTotal([])
+							resolve(() => {
+								for (let i = 0; i < prices.length; i++) {
+									const total = prices[i] * occurrences[i]
+									setFinalTotal((arr) => [...arr, total])
+								}
+								return finalTotal
+							})
+						} else {
+							reject("Rejected")
+						}
+					})
+				}
+				//
+				mypromise()
+					.then((res) => {
+						// console.log("my promise is", mypromise())
+						setGrandTotal(res().reduce((a, b) => a + b, 0))
+					})
+					.then(() => {
+						console.log("this is the response: ", grandTotal)
+					})
+					.catch((error) => {
+						console.log("this is the error ", error)
+					})
+			})
 	}, [reload])
 
 	console.log("cart is", cart)
@@ -48,16 +107,16 @@ function CartCheckout() {
 				setReload(true)
 			})
 		console.log("prod", product)
-		setReload(false)
+		setReload(true)
 	}
-
+	//
 	if (cart.length != 0) {
 		return (
 			<Container>
 				<Wrapper>
 					<Title>Shopping Cart</Title>
 					<TopButton type="filled">Continue Shopping </TopButton>
-
+					{/*  */}
 					<Bottom>
 						{cart ? (
 							cart.map((product, key) => (
@@ -98,9 +157,9 @@ function CartCheckout() {
 						)}
 					</Bottom>
 					<Hr />
-
+					{/*  */}
 					<Total>
-						<p className="total">Total: {}</p>Ksh 350,000
+						<p className="total">Total: {grandTotal}</p>
 					</Total>
 				</Wrapper>
 
