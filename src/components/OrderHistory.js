@@ -3,30 +3,22 @@ import { useState, useEffect } from "react"
 import axios from "axios"
 
 function OrderHistory() {
-  const [data, setData] = useState([])
-  const user = JSON.parse(localStorage.getItem("user"))
-  console.log(user)
+  const [orders, setOrder] = useState([])
+  const user = JSON.parse(localStorage.getItem("user")) || ""
+  console.log("whole user", user)
+  const user_id = user._id
+  console.log(user._id)
 
   useEffect(() => {
-    axios(`http://localhost:5004/orders/find`).then((res) => {
-      console.log(res.data)
-      setData(res.data)
-    })()
+    axios
+      .get(`http://localhost:5004/orders/find/${user_id}`)
+      .then((response) => {
+        console.log("orders: ", JSON.stringify(response.data))
+        console.log("orders: ", response.data)
+        setOrder(response.data)
+      })
   }, [])
-
-  // const column = useMemo(
-  //     () => {
-  //         Header: "My Order History",
-  //         columns: [
-  //             {
-  //                 Header: "Appliance"
-  //                 accessor: "show."
-
-  //         },
-  //     ]
-
-  //     }
-  // )
+  console.log("orders are", orders)
 
   return (
     <Container>
@@ -34,7 +26,9 @@ function OrderHistory() {
         <Header>
           <h3> Your Order History</h3>
         </Header>
-        <Details></Details>
+        <Details>
+          order
+        </Details>
       </Body>
     </Container>
   )

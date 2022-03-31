@@ -81,7 +81,7 @@ function Navbar({ childToParent }) {
               alt={Cart}
               onClick={() => {
                 navigate("/cart")
-                // setshowHistory(false)
+                setshowHistory(false)
                 // setshowCart((prev) => !prev)
               }}
             />
@@ -91,12 +91,12 @@ function Navbar({ childToParent }) {
             <HistoryIcon
               className="history-icon"
               onClick={() => {
-                navigate("/history")
+                // navigate("/history")
             //     setshowCart(false)
-            //     setshowHistory((prev) => !prev)
+                setshowHistory((prev) => !prev)
                }}
              />
-            {/*  {showHistory && <History />} */}
+             {showHistory && <History />}
           </div>
           <div className="avatar">
             <img

@@ -1,42 +1,56 @@
 import styled from "styled-components"
+import axios from "axios"
 import productImage from "../Images/product-1-thumbnail.png"
+import { useEffect, useState } from "react"
 
 function History() {
+  const [orders, setOrder] = useState([])
+  const user = JSON.parse(localStorage.getItem("user")) || ""
+  console.log("whole user", user)
+  const user_id = user._id
+  console.log(user._id)
+
+  useEffect(() => {
+    axios
+      .get(`http://localhost:5004/orders/find/${user_id}`)
+      .then((response) => {
+        console.log("orders: ", JSON.stringify(response.data))
+        console.log("orders: ", response)
+        setOrder(response.data.products)
+      })
+  }, [])
+  console.log("orders are", orders)
+
   return (
     <Body>
       <Header>
         <h3> Your Order History</h3>
       </Header>
       <Content>
-        <div className="thumbnail">
-          <img src={productImage} alt="coffee maker" />
-          <div className="details">
-            <p>
-              Order No: 1
-              <br />
-              2 items
-              <br />
-              <strong>Total Cost:ksh50.00</strong>
-              <br />
-              Ordered on: 2022-04-1
-            </p>
-          </div>
-        </div>
-
-        <div className="thumbnail">
-          <img src={productImage} alt="coffee maker" />
-          <div className="details">
-            <p>
-              Order No: 1
-              <br />
-              2 items
-              <br />
-              <strong>Total Cost:ksh50.00</strong>
-              <br />
-              Ordered on: 2022-04-1
-            </p>
-          </div>
-        </div>
+        {orders ? (
+          orders.map((product, key) => (
+            <div key={key} className="thumbnail">
+              <img src={product.product_object.image} alt="coffee maker" />
+              <div className="details">
+                <p>
+                  <br /> Quantity:
+                  {"  " + product.occurence}
+                  <br />
+                  <strong>
+                    Total Cost{" "}
+                    {" " + product.occurence * product.product_object.price}
+                  </strong>
+                  <br />
+                  <p id="date">
+                    Ordered on: {Date(product.product_object.createdAt)}
+                  </p>
+                </p>
+              </div>
+            </div>
+          ))
+        ) : (
+          <p>"Oops, no orders"</p>
+        )}
       </Content>
 
       <button>View More</button>
@@ -107,17 +121,25 @@ const Content = styled.div`
   .thumbnail {
     display: flex;
     align-items: center;
-    justify-content: space-between;
+    justify-content: space-around;
     border-bottom: 1px solid black;
     padding: 10px 0;
     width: 100%;
 
     img {
-      margin: auto;
-      width: 25%;
+      /* margin: auto; */
+      width: 30%;
       cursor: auto;
     }
     .details {
+      font-size: 14px;
+      /* border: 1px solid black; */
+      overflow: hidden;
+      /* #date {
+        overflow: hidden;
+        width: 100px;
+        height: 30px;
+      } */
     }
   }
 `
