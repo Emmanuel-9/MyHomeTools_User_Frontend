@@ -3,6 +3,7 @@ import { BrowserRouter, Routes, Route, useNavigate } from "react-router-dom"
 import FeaturedProducts from "./components/Home"
 import Register from "./components/Register"
 import Login from "./components/Login"
+import OrderHistory from "./components/OrderHistory"
 import CartCheckout from "./components/CartCheckout"
 import ProductDetail from "./components/ProductDetail"
 import Home from "./components/Home"
@@ -30,6 +31,7 @@ function App() {
 
           <Route path="/products/:productId" element={<ProductDetail />} />
           <Route path="/cart" element={<CartCheckout />} />
+          <Route path="/history" element={<OrderHistory />} />
 
           {/* <Route path="/" element={<Home data={data} />} /> */}
         </Routes>

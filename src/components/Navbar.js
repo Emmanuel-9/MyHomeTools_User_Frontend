@@ -11,7 +11,6 @@ import { useState } from "react"
 import { Link, useNavigate, useLocation } from "react-router-dom"
 // import {  useLocation } from "react-router-dom"
 
-import CartComp from "./Cart"
 import History from "./History"
 
 function Navbar({ childToParent }) {
@@ -92,11 +91,12 @@ function Navbar({ childToParent }) {
             <HistoryIcon
               className="history-icon"
               onClick={() => {
-                setshowCart(false)
-                setshowHistory((prev) => !prev)
-              }}
-            />
-            {showHistory && <History />}
+                navigate("/history")
+            //     setshowCart(false)
+            //     setshowHistory((prev) => !prev)
+               }}
+             />
+            {/*  {showHistory && <History />} */}
           </div>
           <div className="avatar">
             <img
