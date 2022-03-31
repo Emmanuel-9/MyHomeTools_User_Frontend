@@ -1,27 +1,28 @@
-import Logo from "../Images/logo.png"
-import Cart from "../Images/icon-cart.svg"
-import Avatar from "../Images/image-avatar.png"
-import Burger from "../Images/icon-menu.svg"
-import Close from "../Images/icon-close.svg"
-import HistoryIcon from "@mui/icons-material/History"
+import Logo from "../Images/logo.png";
+import Cart from "../Images/icon-cart.svg";
+import Avatar from "../Images/image-avatar.png";
+import Burger from "../Images/icon-menu.svg";
+import Close from "../Images/icon-close.svg";
+import HistoryIcon from "@mui/icons-material/History";
 import SearchOutlinedIcon from "@mui/icons-material/SearchOutlined";
- 
-import styled from "styled-components"
-import { useState } from "react"
-import { Link, useNavigate, useLocation } from "react-router-dom"
+
+import styled from "styled-components";
+import { useState } from "react";
+import { Link, useNavigate, useLocation } from "react-router-dom";
 // import {  useLocation } from "react-router-dom"
 
-import History from "./History"
+// import Cart from "./Cart";
+import History from "./History";
 
 function Navbar({ childToParent }) {
-  const navigate = useNavigate()
-  const [show, setShow] = useState(false)
-  const [showCart, setshowCart] = useState(false)
-  const [showHistory, setshowHistory] = useState(false)
-  const [search, setSearch] = useState("")
-  const location = useLocation()
-  const { pathname } = location
-  const user = localStorage.getItem("user")
+  const navigate = useNavigate();
+  const [show, setShow] = useState(false);
+  const [showCart, setshowCart] = useState(false);
+  const [showHistory, setshowHistory] = useState(false);
+  const [search, setSearch] = useState("");
+  const location = useLocation();
+  const { pathname } = location;
+  const user = localStorage.getItem("user");
 
   return (
     user !== "" && (
@@ -91,38 +92,37 @@ function Navbar({ childToParent }) {
             <HistoryIcon
               className="history-icon"
               onClick={() => {
-                // navigate("/history")
-            //     setshowCart(false)
-                setshowHistory((prev) => !prev)
-               }}
-             />
-             {showHistory && <History />}
+                setshowCart(false);
+                setshowHistory((prev) => !prev);
+              }}
+            />
+            {showHistory && <History />}
           </div>
           <div className="avatar">
             <img
               src={Avatar}
               alt={Avatar}
               onClick={() => {
-                console.log("logout")
-                localStorage.setItem("token", "")
-                localStorage.setItem("user", "")
-                navigate("/login")
+                console.log("logout");
+                localStorage.setItem("token", "");
+                localStorage.setItem("user", "");
+                navigate("/login");
               }}
             />
           </div>
         </Profile>
       </Nav>
     )
-  )
+  );
 }
 
-export default Navbar
+export default Navbar;
 
 const Nav = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
-
+  z-index: 2000;
   max-width: 1152px;
   top: 0;
   margin: auto;
@@ -142,7 +142,7 @@ const Nav = styled.div`
     margin: 0;
     border-bottom: none;
   }
-`
+`;
 const Search = styled.div`
   box-shadow: rgb(204, 219, 232) 3px 3px 6px 0px inset,
     rgba(255, 255, 255, 0.5) -3px -3px 6px 1px inset;
@@ -164,7 +164,12 @@ const Search = styled.div`
     margin: 0 0 0 5px;
     background-color: transparent;
   }
-`
+
+  @media (max-width: 768px) {
+    position: relative;
+    left: -10px;
+  }
+`;
 
 const Links = styled.div`
   display: flex;
@@ -172,9 +177,10 @@ const Links = styled.div`
   height: 100%;
 
   .logo {
-    width: 230px;
+    width: 100px;
     margin-right: 10px;
     margin-left: -80px;
+	cursor: pointer;
   }
 
   .burger {
@@ -284,19 +290,24 @@ const Links = styled.div`
       pointer-events: all;
     }
   }
-`
+`;
 
 const Profile = styled.div`
   display: flex;
   align-items: center;
+  justify-content: center;
 
   .cart {
     position: relative;
     margin-right: 50px;
+    width: 30px;
+    height: 30px;
+    /* border: 1px solid black; */
 
     img {
       cursor: pointer;
       transition: 200ms ease;
+      /* width: 100%; */
       z-index: 1;
     }
 
@@ -314,10 +325,16 @@ const Profile = styled.div`
   }
   .history {
     position: relative;
-    margin-right: 80px;
+    margin-right: 20px;
+    width: 30px;
+    height: 30px;
+
     .history-icon {
       color: grey;
       cursor: pointer;
+      /* width: 100%; */
+      /* border: 1px solid gray; */
+
       transition: 200ms ease;
       z-index: 1;
     }
@@ -331,7 +348,7 @@ const Profile = styled.div`
 
   @media (max-width: 768px) {
     .cart {
-      margin-right: 20px;
+      margin-right: 10px;
       position: initial;
     }
 
@@ -341,4 +358,4 @@ const Profile = styled.div`
       }
     }
   }
-`
+`;
