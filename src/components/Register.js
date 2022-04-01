@@ -38,9 +38,7 @@ function Register() {
     setPhoneNumber(e.target.value)
   }
   const handleConfirmPassword = (e) => {
-    setConfirmPassword( e.target.value )
-    
-    
+    setConfirmPassword(e.target.value)
   }
 
   const register = (e) => {
@@ -62,6 +60,7 @@ function Register() {
         navigate("/")
         console.log(response.data.token)
         localStorage.setItem("token", response.data.token)
+        localStorage.setItem("user", response.data)
         console.log("cookie from the register method", document.cookie.token)
       })
       .catch((err) => {
@@ -170,7 +169,7 @@ const Logo = styled.div`
     padding: 0;
   }
 
-  @media only screen and (max-width: 700px){
+  @media only screen and (max-width: 700px) {
     width: 50%;
     margin: 30px 10px;
   }
@@ -199,7 +198,6 @@ const Wrapper = styled.div`
       /* height: 50%; */
       /* top: 30%; */
       left: 0px;
-    
     }
   }
 `
@@ -284,20 +282,18 @@ const Form = styled.div`
     }
   }
 
-
-  @media only screen  and (max-width: 768px) {
+  @media only screen and (max-width: 768px) {
     padding: 0;
     margin: 0;
     width: 87%;
 
-    form{
-      input{
+    form {
+      input {
         font-size: 14px;
         padding: 5px;
       }
     }
   }
-
 `
 
 const Name = styled.div`

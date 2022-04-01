@@ -1,6 +1,7 @@
 import styled from "styled-components"
 
 function CheckoutDetails() {
+
   return (
     <Container2>
       <Form>

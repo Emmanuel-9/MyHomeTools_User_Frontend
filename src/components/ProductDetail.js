@@ -1,42 +1,78 @@
-import React from "react"
-import { useParams } from "react-router-dom"
-import { useState, useEffect } from "react"
-import styled from "styled-components"
-import axios from "axios"
-
-import minus from "../Images/icon-minus.svg"
-import plus from "../Images/icon-plus.svg"
-import cart from "../Images/icon-cart.svg"
+import React from "react";
+import { useParams, useNavigate } from "react-router-dom";
+import { useState, useEffect } from "react";
+import styled from "styled-components";
+import axios from "axios";
+import minus from "../Images/icon-minus.svg";
+import plus from "../Images/icon-plus.svg";
+import cart from "../Images/icon-cart.svg";
 
 function ProductDetail() {
-  const [quantity, setQuantity] = useState(0)
-  const [products, setProducts] = useState([])
-  const { productId } = useParams()
+  const [quantity, setQuantity] = useState(1);
+  const [products, setProducts] = useState([]);
+  const { productId } = useParams();
+  const navigate = useNavigate();
+
+  const user = JSON.parse(localStorage.getItem("user"));
+  console.log(" user is", user);
 
   useEffect(() => {
-    fetchProduct()
-  }, [])
+    fetchProduct();
+  }, []);
 
+  // console.log(userId)
   const quantityHandler = (increment) => {
     if (increment) {
-      setQuantity((prev) => (prev === 10 ? prev : prev + 1))
+      setQuantity((prev) => (prev === 10 ? prev : prev + 1));
     } else {
-      setQuantity((prev) => (prev === 0 ? prev : prev - 1))
+      setQuantity((prev) => (prev === 1 ? prev : prev - 1));
     }
-  }
+  };
 
   const fetchProduct = () => {
     axios
       .get(`http://localhost:5004/product/${productId}`)
       .then((res) => {
-        console.log(res)
-        console.log(res.data)
-        setProducts(res.data)
+        console.log("res first: ", res.data);
+        setProducts(res.data);
       })
       .catch((err) => {
-        console.log(err)
+        console.log(err);
+      });
+  };
+
+  const array = Array(quantity).fill(productId);
+  console.log("array", array);
+
+  const user_id = user._id;
+  console.log(user_id);
+  const handleAddToCart = () => {
+    axios
+      .put(`http://localhost:5004/cart/${user_id}`, array)
+      .then((res) => {
+        console.log("putting : ", res.data);
+
+        if (res.data === null) {
+          console.log("posting: ");
+          axios
+            .post(`http://localhost:5004/cart`, {
+              user_id: user_id,
+              products: [productId],
+            })
+            .then((response) => {
+              console.log("response after the post: ", response);
+              // navigate("")
+              alert("successfully added to cart");
+            });
+        } else {
+          alert("item added to cart successfully");
+        }
       })
-  }
+      .catch((err) => {
+        console.log("error: ", err.message);
+        console.log("not null: ", user_id);
+      });
+  };
 
   return (
     <Body>
@@ -53,12 +89,22 @@ function ProductDetail() {
 
             <Price>
               <p className="original-price"> ksh {products.price}</p>
-              <p className="discounted-price"> ksh {products.price - products.discount}</p>
+              <p className="discounted-price">
+                {" "}
+                ksh {products.price - products.discount}
+              </p>
             </Price>
 
             <Availability>
               <p>Availability: </p>
-              <p className="available"> {products.availability}</p>
+              <div>
+                {/* {" "} */}
+                {products.quantity < 1 ? (
+                  <p id="unavailable">Unavailable</p>
+                ) : (
+                  <p id="available">In stock</p>
+                )}
+              </div>
             </Availability>
           </Same>
 
@@ -74,7 +120,7 @@ function ProductDetail() {
             <div
               className="desc"
               onClick={() => {
-                quantityHandler(false)
+                quantityHandler(false);
               }}
             >
               <img src={minus} alt={minus} />
@@ -85,7 +131,7 @@ function ProductDetail() {
             <div
               className="inc"
               onClick={() => {
-                quantityHandler(true)
+                quantityHandler(true);
               }}
             >
               <img src={plus} alt={plus} />
@@ -94,7 +140,7 @@ function ProductDetail() {
 
           <Checkout>
             <div className="add-to-cart">
-              <button>
+              <button onClick={handleAddToCart}>
                 <img src={cart} alt={cart} /> Add to Cart
               </button>
             </div>
@@ -102,14 +148,15 @@ function ProductDetail() {
         </Details>
       </Card>
     </Body>
-  )
+  );
 }
 
-export default ProductDetail
+export default ProductDetail;
 
 const Body = styled.div`
-  height: 50%; ;
-`
+  height: 50%;
+  background-color: #f5f5f5;
+`;
 
 const Card = styled.div`
   display: flex;
@@ -123,7 +170,7 @@ const Card = styled.div`
     left: 180px;
     top: 5px;
   }
-`
+`;
 const Images = styled.div`
   width: 50%;
   margin: auto 2%;
@@ -137,10 +184,13 @@ const Images = styled.div`
     position: relative;
     top: -25px;
   }
-`
+`;
 const Details = styled.div`
   width: 100%;
   margin-top: 100px;
+  /* border: 1px solid lightgrey; */
+  background-color: white;
+  border-radius: 10px;
 
   @media only screen and (min-width: 786px) {
     width: 80%;
@@ -148,7 +198,7 @@ const Details = styled.div`
     top: -80px;
     text-align: justify;
   }
-`
+`;
 const Same = styled.div`
   padding: 0 0 0 30px;
   margin: 0 auto;
@@ -158,7 +208,7 @@ const Same = styled.div`
     position: relative;
     top: 20px;
   }
-`
+`;
 const Name = styled.div`
   display: flex;
   justify-content: center;
@@ -171,7 +221,7 @@ const Name = styled.div`
   @media only screen and (min-width: 786px) {
     width: 80%;
   }
-`
+`;
 const Price = styled.div`
   display: flex;
   width: 60%;
@@ -196,15 +246,19 @@ const Price = styled.div`
     justify-content: space-around;
     padding: 5px 150px 5px 150px;
   }
-`
+`;
 const Availability = styled.div`
   display: flex;
   width: 75%;
   justify-content: space-between;
   margin: 1% 0;
 
-  .available {
+  #available {
     color: green;
+  }
+
+  #unavailable {
+    color: red;
   }
 
   @media only screen and (min-width: 786px) {
@@ -213,9 +267,11 @@ const Availability = styled.div`
     justify-content: space-around;
     padding: 5px 150px 5px 150px;
   }
-`
+`;
 const Description = styled.div`
   margin: 20px 0 0 0;
+  
+
   @media only screen and (min-width: 786px) {
     width: 80%;
     position: relative;
@@ -225,7 +281,10 @@ const Description = styled.div`
 
   .description-heading {
     text-align: center;
-    margin: 10px 0;
+    margin: 30px 0;
+    text-decoration: underline;
+    font-weight: bold;
+    font-size: 20px;
   }
 
   .description-body {
@@ -237,7 +296,7 @@ const Description = styled.div`
     width: 80%;
     position: relative;
   }
-`
+`;
 const Quantity = styled.div`
   position: absolute;
   display: flex;
@@ -253,7 +312,7 @@ const Quantity = styled.div`
     margin: 10px auto;
     left: 150px;
   }
-`
+`;
 
 const Buttons = styled.div`
   display: flex;
@@ -288,25 +347,36 @@ const Buttons = styled.div`
     background-color: #a6c2c1;
     border-radius: 20px;
   }
-`
+`;
 const Checkout = styled.div`
   width: 70%;
   margin-left: 100px;
-
+  /* display: inline-flex; */
   display: flex;
   justify-content: center;
   margin: 0 auto;
 
   button {
     padding: 15px;
-    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    width:120%;
     margin-bottom: 20px;
     border: 1px solid lightgrey;
     border-radius: 20px;
     margin-right: 0;
     background-color: #a6c2c1;
+    
+
+    :hover {
+      cursor: pointer;
+      background-color: grey;
+    }
   }
 
   @media only screen and (min-width: 786px) {
+    button{
+    
+    }
   }
-`
+`;
